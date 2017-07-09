@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataValidation", "DataValidation\DataValidation.csproj", "{79222F02-3563-401D-AF16-CCF378A03049}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{F080D959-3629-4C41-A7D3-BB2EBD8E8BCD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{79222F02-3563-401D-AF16-CCF378A03049}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79222F02-3563-401D-AF16-CCF378A03049}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79222F02-3563-401D-AF16-CCF378A03049}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F080D959-3629-4C41-A7D3-BB2EBD8E8BCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F080D959-3629-4C41-A7D3-BB2EBD8E8BCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F080D959-3629-4C41-A7D3-BB2EBD8E8BCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F080D959-3629-4C41-A7D3-BB2EBD8E8BCD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
