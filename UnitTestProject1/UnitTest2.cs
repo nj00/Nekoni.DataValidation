@@ -114,11 +114,11 @@ namespace UnitTestProject1
             var model = new Staff2();
             Func<List<ValidationResult>> check = () => model.GetValidationContext("MailAddress").GetPropErrors();
 
-            model.MailAddress = "foo@bar.com";
+            model.MailAddress = "staff1@nekoni.net";
             var results = check.Invoke();
             results.Count().Is(0);
 
-            model.MailAddress = "foo-bar.com";
+            model.MailAddress = "staff1-nekoni.net";
             results = check.Invoke();
             results.Count().Is(1);
             if (results.Count != 1) return;
@@ -132,12 +132,12 @@ namespace UnitTestProject1
             var model = new Staff2();
             Func<List<ValidationResult>> check = () => model.GetValidationContext("MailAddressConfirm").GetPropErrors();
 
-            model.MailAddress = "foo@bar.com";
-            model.MailAddressConfirm = "foo@bar.com";
+            model.MailAddress = "staff1@nekoni.net";
+            model.MailAddressConfirm = "staff1@nekoni.net";
             var results = check.Invoke();
             results.Count().Is(0);
 
-            model.MailAddressConfirm = "foo@bar.net";
+            model.MailAddressConfirm = "staff2@nekoni.net";
             results = check.Invoke();
             results.Count().Is(1);
             if (results.Count != 1) return;
@@ -191,11 +191,11 @@ namespace UnitTestProject1
             var results = check.Invoke();
             results.Count().Is(0);
 
-            model.MailAddress2 = "nj00@nekoni.net";
+            model.MailAddress2 = "staff1@nekoni.net";
             results = check.Invoke();
             results.Count().Is(0);
 
-            model.MailAddress2 = "nj00@outlook.com";
+            model.MailAddress2 = "staff1@nekoni.com";
             results = check.Invoke();
             results.Count().Is(1);
             if (results.Count != 1) return;
@@ -230,8 +230,8 @@ namespace UnitTestProject1
             Func<List<ValidationResult>> check = () => model.GetValidationContext().GetClassLevelErrors();
 
             model.SyainNo = "1";
-            model.MailAddress = "nj00@nekoni.net";
-            model.MailAddressConfirm = "nj00@nekoni.net";
+            model.MailAddress = "staff1@nekoni.net";
+            model.MailAddressConfirm = "staff1@nekoni.net";
 
 
             model.HireDate = "2015/04/01";

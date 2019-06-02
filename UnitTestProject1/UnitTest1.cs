@@ -154,11 +154,11 @@ namespace UnitTestProject1
 
             };
 
-            model.MailAddress = "foo@bar.com";
+            model.MailAddress = "staff1@nekoni.net";
             check.Invoke();
             results.Count().Is(0);
 
-            model.MailAddress = "foo-bar.com";
+            model.MailAddress = "staff1-nekoni.net";
             check.Invoke();
             results.Count().Is(1);
             if (results.Count != 1) return;
@@ -181,12 +181,12 @@ namespace UnitTestProject1
 
             };
 
-            model.MailAddress = "foo@bar.com";
-            model.MailAddressConfirm = "foo@bar.com";
+            model.MailAddress = "staff1@nekoni.net";
+            model.MailAddressConfirm = "staff1@nekoni.net";
             check.Invoke();
             results.Count().Is(0);
 
-            model.MailAddressConfirm = "foo@bar.net";
+            model.MailAddressConfirm = "staff2@nekoni.net";
             check.Invoke();
             results.Count().Is(1);
             if (results.Count != 1) return;
@@ -267,11 +267,11 @@ namespace UnitTestProject1
             check.Invoke();
             results.Count().Is(0);
 
-            model.MailAddress2 = "nj00@nekoni.net";
+            model.MailAddress2 = "staff1@nekoni.net";
             check.Invoke();
             results.Count().Is(0);
 
-            model.MailAddress2 = "nj00@outlook.com";
+            model.MailAddress2 = "staff1@nekoni.com";
             check.Invoke();
             results.Count().Is(1);
             if (results.Count != 1) return;
@@ -320,8 +320,8 @@ namespace UnitTestProject1
             };
 
             model.SyainNo = "1";
-            model.MailAddress = "nj00@nekoni.net";
-            model.MailAddressConfirm = "nj00@nekoni.net";
+            model.MailAddress = "staff1@nekoni.net";
+            model.MailAddressConfirm = "staff1@nekoni.net";
 
 
             model.HireDate = "2015/04/01";
