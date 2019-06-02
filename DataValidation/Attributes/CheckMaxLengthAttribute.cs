@@ -14,7 +14,7 @@ namespace DataValidation.Attributes
         /// </summary>
         public CheckMaxLengthAttribute() : base()
         {
-            this.SetupMessageResource();
+            this.SetupErrorMessageResource();
         }
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace DataValidation.Attributes
         /// </summary>
         public CheckMaxLengthAttribute(int length) : base(length)
         {
-            Configuration.SetupMessageResource(this);
+            this.SetupErrorMessageResource();
         }
     }
 }

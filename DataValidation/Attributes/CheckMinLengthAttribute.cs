@@ -14,7 +14,7 @@ namespace DataValidation.Attributes
         /// </summary>
         public CheckMinLengthAttribute(int length) : base(length)
         {
-            this.SetupMessageResource();
+            this.SetupErrorMessageResource();
         }
     }
 }

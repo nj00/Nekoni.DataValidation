@@ -17,7 +17,7 @@ namespace DataValidation.Attributes
         /// </summary>
         public CheckEnumDataTypeAttribute(Type enumType) : base()
         {
-            this.SetupMessageResource();
+            this.SetupErrorMessageResource();
 
             Attr = new EnumDataTypeAttribute(enumType);
         }

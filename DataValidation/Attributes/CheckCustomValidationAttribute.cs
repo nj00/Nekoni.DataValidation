@@ -18,7 +18,7 @@ namespace DataValidation.Attributes
         /// </summary>
         public CheckCustomValidationAttribute(Type validatorType, string method) : base()
         {
-            this.SetupMessageResource();
+            this.SetupErrorMessageResource();
 
             Attr = new CustomValidationAttribute(validatorType, method);
         }

@@ -17,7 +17,7 @@ namespace DataValidation.Attributes
         /// </summary>
         public CheckUrlAttribute() : base()
         {
-            this.SetupMessageResource();
+            this.SetupErrorMessageResource();
 
             Attr = new UrlAttribute();
         }

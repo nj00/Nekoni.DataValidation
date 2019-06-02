@@ -22,14 +22,14 @@ namespace UnitTestProject1 {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ErrorMessage {
+    public class ErrorMessage2 {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ErrorMessage() {
+        internal ErrorMessage2() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace UnitTestProject1 {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("UnitTestProject1.ErrorMessage", typeof(ErrorMessage).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("UnitTestProject1.ErrorMessage2", typeof(ErrorMessage2).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,15 +61,6 @@ namespace UnitTestProject1 {
         }
         
         /// <summary>
-        ///   {0}が異なっています。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        public static string CheckCompare {
-            get {
-                return ResourceManager.GetString("CheckCompare", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   {0}が不正な日付です。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string CheckDate {
@@ -79,65 +70,29 @@ namespace UnitTestProject1 {
         }
         
         /// <summary>
+        ///   {0}が異なっています。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Compare {
+            get {
+                return ResourceManager.GetString("Compare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   {0}が有効なメールアドレスではありません。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        public static string CheckEmailAddress {
+        public static string EmailAddress {
             get {
-                return ResourceManager.GetString("CheckEmailAddress", resourceCulture);
+                return ResourceManager.GetString("EmailAddress", resourceCulture);
             }
         }
         
         /// <summary>
         ///   {0}の値が不正です。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        public static string CheckEnumDataType {
+        public static string EnumDataType {
             get {
-                return ResourceManager.GetString("CheckEnumDataType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   {0}が{1}～{2}の範囲外です。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        public static string CheckRange {
-            get {
-                return ResourceManager.GetString("CheckRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   {0}が不正な値です。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        public static string CheckRegularExpression {
-            get {
-                return ResourceManager.GetString("CheckRegularExpression", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   {0}は必須です。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        public static string CheckRequired {
-            get {
-                return ResourceManager.GetString("CheckRequired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   {0}の文字数が最大長{1}文字より大きくなっています。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        public static string CheckStringLength {
-            get {
-                return ResourceManager.GetString("CheckStringLength", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   {0}は不正なURLです。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        public static string CheckUrl {
-            get {
-                return ResourceManager.GetString("CheckUrl", resourceCulture);
+                return ResourceManager.GetString("EnumDataType", resourceCulture);
             }
         }
         
@@ -165,6 +120,51 @@ namespace UnitTestProject1 {
         public static string NotUnique {
             get {
                 return ResourceManager.GetString("NotUnique", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   {0}が{1}～{2}の範囲外です。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Range {
+            get {
+                return ResourceManager.GetString("Range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   {0}が不正な値です。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RegularExpression {
+            get {
+                return ResourceManager.GetString("RegularExpression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   {0}は必須です。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Required {
+            get {
+                return ResourceManager.GetString("Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   {0}の文字数が最大長{1}文字より大きくなっています。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string StringLength {
+            get {
+                return ResourceManager.GetString("StringLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   {0}は不正なURLです。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Url {
+            get {
+                return ResourceManager.GetString("Url", resourceCulture);
             }
         }
     }

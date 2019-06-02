@@ -17,7 +17,7 @@ namespace DataValidation.Attributes
         /// </summary>
         public CheckEmailAddressAttribute() : base()
         {
-            this.SetupMessageResource();
+            this.SetupErrorMessageResource();
 
             Attr = new EmailAddressAttribute();
         }

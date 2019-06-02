@@ -117,32 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CheckCompare" xml:space="preserve">
-    <value>{0}が異なっています。</value>
-  </data>
   <data name="CheckDate" xml:space="preserve">
     <value>{0}が不正な日付です。</value>
   </data>
-  <data name="CheckEmailAddress" xml:space="preserve">
+  <data name="Compare" xml:space="preserve">
+    <value>{0}が異なっています。</value>
+  </data>
+  <data name="EmailAddress" xml:space="preserve">
     <value>{0}が有効なメールアドレスではありません。</value>
   </data>
-  <data name="CheckEnumDataType" xml:space="preserve">
+  <data name="EnumDataType" xml:space="preserve">
     <value>{0}の値が不正です。</value>
-  </data>
-  <data name="CheckRange" xml:space="preserve">
-    <value>{0}が{1}～{2}の範囲外です。</value>
-  </data>
-  <data name="CheckRegularExpression" xml:space="preserve">
-    <value>{0}が不正な値です。</value>
-  </data>
-  <data name="CheckRequired" xml:space="preserve">
-    <value>{0}は必須です。</value>
-  </data>
-  <data name="CheckStringLength" xml:space="preserve">
-    <value>{0}の文字数が最大長{1}文字より大きくなっています。</value>
-  </data>
-  <data name="CheckUrl" xml:space="preserve">
-    <value>{0}は不正なURLです。</value>
   </data>
   <data name="InvalidDomainName" xml:space="preserve">
     <value>{0}のドメイン名が"nekoni.net"ではありません。</value>
@@ -152,5 +137,20 @@
   </data>
   <data name="NotUnique" xml:space="preserve">
     <value>{0}が重複しています。</value>
+  </data>
+  <data name="Range" xml:space="preserve">
+    <value>{0}が{1}～{2}の範囲外です。</value>
+  </data>
+  <data name="RegularExpression" xml:space="preserve">
+    <value>{0}が不正な値です。</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>{0}は必須です。</value>
+  </data>
+  <data name="StringLength" xml:space="preserve">
+    <value>{0}の文字数が最大長{1}文字より大きくなっています。</value>
+  </data>
+  <data name="Url" xml:space="preserve">
+    <value>{0}は不正なURLです。</value>
   </data>
 </root>

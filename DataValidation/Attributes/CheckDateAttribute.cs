@@ -14,7 +14,7 @@ namespace DataValidation.Attributes
         /// </summary>
         public CheckDateAttribute()
         {
-            this.SetupMessageResource();
+            this.SetupErrorMessageResource();
         }
 
         /// <summary>

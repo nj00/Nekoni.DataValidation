@@ -16,7 +16,7 @@ namespace DataValidation.Attributes
         /// <param name="maximum">最大値</param>
         public CheckRangeAttribute(int minimum, int maximum) : base(minimum, maximum)
         {
-            this.SetupMessageResource();
+            this.SetupErrorMessageResource();
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace DataValidation.Attributes
         /// <param name="maximum">最大値</param>
         public CheckRangeAttribute(double minimum, double maximum) : base(minimum, maximum)
         {
-            this.SetupMessageResource();
+            this.SetupErrorMessageResource();
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace DataValidation.Attributes
         /// <param name="maximum">最大値</param>
         public CheckRangeAttribute(Type type, string minimum, string maximum) : base(type, minimum, maximum)
         {
-            this.SetupMessageResource();
+            this.SetupErrorMessageResource();
         }
     }
 }

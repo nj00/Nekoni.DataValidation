@@ -14,7 +14,7 @@ namespace DataValidation.Attributes
         /// </summary>
         public CheckRequiredAttribute() : base()
         {
-            this.SetupMessageResource();
+            this.SetupErrorMessageResource();
         }
     }
 }

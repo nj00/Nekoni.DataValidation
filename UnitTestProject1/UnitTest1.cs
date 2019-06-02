@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DataValidation;
 using TestModels;
 using System.Linq;
 
@@ -14,26 +13,27 @@ namespace UnitTestProject1
         public UnitTest1()
         {
             // エラーメッセージリソースの設定
-            Configuration.DefaultErrorMessageResourceType = typeof(ErrorMessage);
-            Configuration.ErrorMessageResourceNameProvider = (attr) => attr.GetType().Name.Replace("Attribute", string.Empty);
+            DataValidation.Configuration.DefaultErrorMessageResourceType = typeof(ErrorMessage);
+            DataValidation.Configuration.DefaultErrorMessageResourceNameProvider = (attr) => attr.GetType().Name.Replace("Attribute", string.Empty);
         }
 
         [TestMethod]
         public void Test1_ErrorMessageResourceからのメッセージ取得テスト()
         {
-            var syain = new Syain();
+            var syain = new Staff();
 
             var results = new List<ValidationResult>();
-            Validator.TryValidateProperty(syain.MailAddress, new ValidationContext(syain, null, null)
+            var context = new ValidationContext(syain, null, null)
             {
                 MemberName = "MailAddress",
                 DisplayName = DisplayNames.ResourceManager.GetString("MailAddress")
-            }, results);
+            };
+            Validator.TryValidateProperty(syain.MailAddress, context, results);
             results.Count.Is(1);
             if (results.Count != 1) return;
 
             var res = results.First();
-            res.ErrorMessage.Is(string.Format(ErrorMessage.CheckRequired, "メールアドレス"));
+            res.ErrorMessage.Is(string.Format(ErrorMessage.CheckRequired, context.DisplayName));
 
         }
 
@@ -41,7 +41,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_CheckRequiredのテスト()
         {
-            var syain = new Syain();
+            var syain = new Staff();
 
             var results = new List<ValidationResult>();
             Validator.TryValidateObject(syain, new ValidationContext(syain, null, null), results, true);
@@ -51,7 +51,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_CheckStringLengthのテスト()
         {
-            var syain = new Syain();
+            var syain = new Staff();
             var results = new List<ValidationResult>();
             Action check = () =>
             {
@@ -79,7 +79,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_CheckRangeのテスト()
         {
-            var syain = new Syain();
+            var syain = new Staff();
             var results = new List<ValidationResult>();
             Action check = () =>
             {
@@ -107,7 +107,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_CheckDateのテスト()
         {
-            var syain = new Syain();
+            var syain = new Staff();
             var results = new List<ValidationResult>();
             Action check = () =>
             {
@@ -142,7 +142,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_CheckEmailAddressのテスト()
         {
-            var syain = new Syain();
+            var syain = new Staff();
             var results = new List<ValidationResult>();
             Action check = () =>
             {
@@ -169,7 +169,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_CheckCompareのテスト()
         {
-            var syain = new Syain();
+            var syain = new Staff();
             var results = new List<ValidationResult>();
             Action check = () =>
             {
@@ -197,7 +197,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_CheckUrlのテスト()
         {
-            var syain = new Syain();
+            var syain = new Staff();
             var results = new List<ValidationResult>();
             Action check = () =>
             {
@@ -224,7 +224,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_CheckEnumDataTypeのテスト()
         {
-            var syain = new Syain();
+            var syain = new Staff();
             var results = new List<ValidationResult>();
             Action check = () =>
             {
@@ -251,7 +251,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_CheckRegularExpressionのテスト()
         {
-            var syain = new Syain();
+            var syain = new Staff();
             var results = new List<ValidationResult>();
             Action check = () =>
             {
@@ -267,11 +267,11 @@ namespace UnitTestProject1
             check.Invoke();
             results.Count().Is(0);
 
-            syain.MailAddress2 = "nomiya@cosmo.cc";
+            syain.MailAddress2 = "nj00@nekoni.net";
             check.Invoke();
             results.Count().Is(0);
 
-            syain.MailAddress2 = "nomiya@dream.jp";
+            syain.MailAddress2 = "nj00@outlook.com";
             check.Invoke();
             results.Count().Is(1);
             if (results.Count != 1) return;
@@ -282,7 +282,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_CheckValidのテスト()
         {
-            var syain = new Syain();
+            var syain = new Staff();
             var results = new List<ValidationResult>();
             Action check = () =>
             {
@@ -311,7 +311,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_CheckCustomValidationのテスト()
         {
-            var syain = new Syain();
+            var syain = new Staff();
             var results = new List<ValidationResult>();
             Action check = () =>
             {

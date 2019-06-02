@@ -6,7 +6,7 @@ namespace DataValidation.Attributes
     /// <summary>
     /// 他のプロパティと同値か比較する属性
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
     public class CheckCompareAttribute : CompareAttribute
     {
         /// <summary>
@@ -14,7 +14,7 @@ namespace DataValidation.Attributes
         /// </summary>
         public CheckCompareAttribute(string otherProperty) : base(otherProperty)
         {
-            this.SetupMessageResource();
+            this.SetupErrorMessageResource();
         }
     }
 }

@@ -22,7 +22,7 @@ namespace DataValidation.Attributes
         {
             this.ValidValue = validValue;
 
-            this.SetupMessageResource();
+            this.SetupErrorMessageResource();
         }
 
         /// <summary>

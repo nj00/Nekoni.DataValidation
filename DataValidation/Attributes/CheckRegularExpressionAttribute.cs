@@ -14,7 +14,7 @@ namespace DataValidation.Attributes
         /// </summary>
         public CheckRegularExpressionAttribute(string pattern) : base(pattern)
         {
-            this.SetupMessageResource();
+            this.SetupErrorMessageResource();
         }
     }
 }

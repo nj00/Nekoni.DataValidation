@@ -15,7 +15,7 @@ namespace DataValidation.Attributes
         /// <param name="maximumLength">最大長</param>
         public CheckStringLengthAttribute(int maximumLength) : base(maximumLength)
         {
-            this.SetupMessageResource();
+            this.SetupErrorMessageResource();
         }
     }
 }
