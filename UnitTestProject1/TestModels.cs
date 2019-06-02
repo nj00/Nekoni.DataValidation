@@ -1,5 +1,5 @@
 ﻿using System;
-using DataValidation.Attributes;
+using Nekoni.DataValidation.Attributes;
 using System.Text.RegularExpressions;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
@@ -35,7 +35,7 @@ namespace TestModels
         /// 社員番号が重複しているかどうか
         /// </summary>
         [Display(Name = "社員番号")]
-        [CheckValid(false, ErrorMessageResourceName = "NotUnique")]
+        [CheckBooleanAttribute(false, ErrorMessageResourceName = "NotUnique")]
         public bool SyainNoIsNotUnique { get; set; }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace TestModels
         /// 社員番号が重複しているかどうか
         /// </summary>
         [Display(Name = "社員番号")]
-        [CheckValid(false, ErrorMessageResourceName = "NotUnique")]
+        [CheckBooleanAttribute(false, ErrorMessageResourceName = "NotUnique")]
         public bool SyainNoIsNotUnique { get; set; }
 
         /// <summary>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DataValidation.Attributes
+namespace Nekoni.DataValidation.Attributes
 {
     /// <summary>
     /// 範囲チェック属性

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DataValidation;
+using Nekoni.DataValidation;
+using Nekoni.DataValidation.Context;
+using Nekoni.DataValidation.Validator;
 using TestModels;
 using System.Linq;
 
@@ -14,8 +16,8 @@ namespace UnitTestProject1
         public UnitTest2()
         {
             // エラーメッセージリソースの設定
-            DataValidation.Configuration.DefaultErrorMessageResourceType = typeof(ErrorMessage2);
-            DataValidation.Configuration.DefaultErrorMessageResourceNameProvider = (attr) => attr.GetType().Name.Replace("Attribute", string.Empty);
+            Configuration.DefaultErrorMessageResourceType = typeof(ErrorMessage2);
+            Configuration.DefaultErrorMessageResourceNameProvider = (attr) => attr.GetType().Name.Replace("Attribute", string.Empty);
         }
 
         [TestMethod]

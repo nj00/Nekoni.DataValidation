@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DataValidation.Attributes
+namespace Nekoni.DataValidation.Attributes
 {
     /// <summary>
     /// 他のプロパティと同値か比較する属性

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DataValidation.Attributes
+namespace Nekoni.DataValidation.Attributes
 {
     /// <summary>
     /// Boolean型チェック属性
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class CheckValidAttribute : ValidationAttribute
+    public class CheckBooleanAttributeAttribute : ValidationAttribute
     {
         /// <summary>
         /// 検証が正しいとする値
@@ -18,7 +18,7 @@ namespace DataValidation.Attributes
         /// コンストラクタ
         /// </summary>
         /// <param name="validValue"></param>
-        public CheckValidAttribute(bool validValue)
+        public CheckBooleanAttributeAttribute(bool validValue)
         {
             this.ValidValue = validValue;
 

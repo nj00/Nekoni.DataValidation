@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DataValidation.Attributes
+namespace Nekoni.DataValidation.Attributes
 {
     /// <summary>
     /// Urlチェック属性

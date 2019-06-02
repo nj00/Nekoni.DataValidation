@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DataValidation.Attributes
+namespace Nekoni.DataValidation.Attributes
 {
     /// <summary>
     /// 文字列または配列の最大長チェック属性

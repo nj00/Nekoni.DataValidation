@@ -5,65 +5,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 
-namespace DataValidation
+namespace Nekoni.DataValidation.Validator
 {
-    /// <summary>
-    /// ValidationAttribute 拡張メソッド
-    /// </summary>
-    public static class ValidationAttributeExtensions
-    {
-        /// <summary>
-        /// 検証属性にメッセージリソースを設定する拡張メソッド
-        /// </summary>
-        /// <param name="va">検証属性</param>
-        /// <param name="errMsgResourceType">エラーメッセージが設定されているリソースのType</param>
-        /// <param name="errMsgResourceName">エラーメッセージリソースのキー名</param>
-        public static void SetupErrorMessageResource(this ValidationAttribute va, Type errMsgResourceType, string errMsgResourceName)
-        {
-            //if (!string.IsNullOrEmpty(va.ErrorMessage)) return;
-            // hack: EmailAddressAttributeやUrlAttributeなど、コンストラクタでinternalのDefaultErrorMessageプロパティがセットされている。
-            // ValidationAttribute.ErrorMessageプロパティは自身のバッキングストア(_errorMessage)がnullの場合、DefaultErrorMessageを返す。
-            // 属性指定でErrorMessageを指定しているかどうかの判定がErrorMessageプロパティではわからないので、リフレクションを使用してバッキングストア
-            // に直接アクセスする。
-            var vaType = typeof(ValidationAttribute);
-            var field = vaType.GetField("_errorMessage", BindingFlags.Instance | BindingFlags.NonPublic);
-            if (field == null) return;
-            var errorMessage = field.GetValue(va) as string;
-            if (!string.IsNullOrEmpty(errorMessage)) return;
-
-            va.ErrorMessageResourceType = va.ErrorMessageResourceType ?? errMsgResourceType;
-            va.ErrorMessageResourceName = va.ErrorMessageResourceName ?? errMsgResourceName;
-        }
-        /// <summary>
-        /// 検証属性にメッセージリソースを設定する拡張メソッド
-        /// </summary>
-        /// <param name="va">検証属性</param>
-        /// <param name="errMsgResourceType">エラーメッセージが設定されているリソースのType</param>
-        /// <param name="errMsgResourceNameProvider">エラーメッセージリソース名を決定するFuncデリゲート</param>
-        public static void SetupErrorMessageResource(this ValidationAttribute va, Type errMsgResourceType,
-            Func<ValidationAttribute, string> errMsgResourceNameProvider)
-        {
-            va.SetupErrorMessageResource(errMsgResourceType, errMsgResourceNameProvider.Invoke(va));
-        }
-        /// <summary>
-        /// 検証属性にメッセージリソースを設定する拡張メソッド
-        /// </summary>
-        /// <param name="va">検証属性</param>
-        /// <param name="errMsgResourceType">エラーメッセージが設定されているリソースのType</param>
-        public static void SetupErrorMessageResource(this ValidationAttribute va, Type errMsgResourceType)
-        {
-            va.SetupErrorMessageResource(errMsgResourceType, Configuration.DefaultErrorMessageResourceNameProvider.Invoke(va));
-        }
-        /// <summary>
-        /// 検証属性に既定のリソースを設定する拡張メソッド
-        /// </summary>
-        /// <param name="va">検証属性</param>
-        public static void SetupErrorMessageResource(this ValidationAttribute va)
-        {
-            va.SetupErrorMessageResource(Configuration.DefaultErrorMessageResourceType, Configuration.DefaultErrorMessageResourceNameProvider);
-        }
-    }
-
     /// <summary>
     /// ValidationContext 拡張メソッド（検証メソッド）
     /// </summary>
@@ -213,70 +156,4 @@ namespace DataValidation
         }
     }
 
-
-    /// <summary>
-    /// ValidationContextを作成する拡張メソッド
-    /// </summary>
-    public static class ComponentExtensions
-    {
-        public static ValidationContext GetValidationContext(this object component, IServiceProvider serviceProvider, IDictionary<object, object> items, 
-            string memberName, string displayName)
-        {
-            return new ValidationContext(component, serviceProvider, items) { MemberName = memberName, DisplayName = displayName };
-        }
-        public static ValidationContext GetValidationContext(this object component, IServiceProvider serviceProvider, IDictionary<object, object> items,
-            string memberName)
-        {
-            return new ValidationContext(component, serviceProvider, items) { MemberName = memberName };
-        }
-        public static ValidationContext GetValidationContext(this object component, IServiceProvider serviceProvider, IDictionary<object, object> items)
-        {
-            return new ValidationContext(component, serviceProvider, items);
-        }
-
-        public static ValidationContext GetValidationContext(this object component, IServiceProvider serviceProvider)
-        {
-            return new ValidationContext(component, serviceProvider, null);
-        }
-        public static ValidationContext GetValidationContext(this object component, IServiceProvider serviceProvider,
-            string memberName, string displayName)
-        {
-            return new ValidationContext(component, serviceProvider, null) { MemberName = memberName, DisplayName = displayName };
-        }
-        public static ValidationContext GetValidationContext(this object component, IServiceProvider serviceProvider,
-            string memberName)
-        {
-            return new ValidationContext(component, serviceProvider, null) { MemberName = memberName };
-        }
-
-        public static ValidationContext GetValidationContext(this object component, IDictionary<object, object> items)
-        {
-            return new ValidationContext(component, null, items);
-        }
-        public static ValidationContext GetValidationContext(this object component, IDictionary<object, object> items,
-            string memberName, string displayName)
-        {
-            return new ValidationContext(component, null, items) { MemberName = memberName, DisplayName = displayName };
-        }
-        public static ValidationContext GetValidationContext(this object component, IDictionary<object, object> items,
-            string memberName)
-        {
-            return new ValidationContext(component, null, items) { MemberName = memberName };
-        }
-
-        public static ValidationContext GetValidationContext(this object component)
-        {
-            return new ValidationContext(component);
-        }
-
-        public static ValidationContext GetValidationContext(this object component, string memberName, string displayName)
-        {
-            return new ValidationContext(component) { MemberName = memberName, DisplayName = displayName };
-        }
-
-        public static ValidationContext GetValidationContext(this object component, string memberName)
-        {
-            return new ValidationContext(component) { MemberName = memberName };
-        }
-    }
 }

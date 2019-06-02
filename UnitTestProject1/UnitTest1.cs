@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestModels;
 using System.Linq;
+using Nekoni.DataValidation;
 
 namespace UnitTestProject1
 {
@@ -13,8 +14,8 @@ namespace UnitTestProject1
         public UnitTest1()
         {
             // エラーメッセージリソースの設定
-            DataValidation.Configuration.DefaultErrorMessageResourceType = typeof(ErrorMessage);
-            DataValidation.Configuration.DefaultErrorMessageResourceNameProvider = (attr) => attr.GetType().Name.Replace("Attribute", string.Empty);
+            Configuration.DefaultErrorMessageResourceType = typeof(ErrorMessage);
+            Configuration.DefaultErrorMessageResourceNameProvider = (attr) => attr.GetType().Name.Replace("Attribute", string.Empty);
         }
 
         [TestMethod]
