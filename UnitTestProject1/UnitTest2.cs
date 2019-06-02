@@ -21,8 +21,8 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test1_ErrorMessageResourceからのメッセージ取得テスト()
         {
-            var syain = new Staff2();
-            var context = syain.GetValidationContext("MailAddress", DisplayNames.ResourceManager.GetString("MailAddress"));
+            var model = new Staff2();
+            var context = model.GetValidationContext("MailAddress", DisplayNames.ResourceManager.GetString("MailAddress"));
             var results = context.GetPropErrors();
             results.Count.Is(1);
             if (results.Count != 1) return;
@@ -36,24 +36,24 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_Requiredのテスト()
         {
-            var syain = new Staff2();
+            var model = new Staff2();
 
-            var results = syain.GetValidationContext().GetAllErrors();
+            var results = model.GetValidationContext().GetAllErrors();
             results.Count.Is(4);        // 必須項目は４つ
         }
 
         [TestMethod]
         public void Test2_StringLengthのテスト()
         {
-            var syain = new Staff2();
+            var model = new Staff2();
 
-            Func<List<ValidationResult>> check = () => syain.GetValidationContext("SyainNo").GetPropErrors();
+            Func<List<ValidationResult>> check = () => model.GetValidationContext("SyainNo").GetPropErrors();
 
-            syain.SyainNo = "1234567890";
+            model.SyainNo = "1234567890";
             var results = check.Invoke();
             results.Count().Is(0);
 
-            syain.SyainNo = "12345678901";
+            model.SyainNo = "12345678901";
             results = check.Invoke();
             results.Count().Is(1);
             if (results.Count != 1) return;
@@ -65,14 +65,14 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_Rangeのテスト()
         {
-            var syain = new Staff2();
+            var model = new Staff2();
 
-            Func<List<ValidationResult>> check = () => syain.GetValidationContext("Age").GetPropErrors();
-            syain.Age = "20";
+            Func<List<ValidationResult>> check = () => model.GetValidationContext("Age").GetPropErrors();
+            model.Age = "20";
             var results = check.Invoke();
             results.Count().Is(0);
 
-            syain.Age = "120";
+            model.Age = "120";
             results = check.Invoke();
             results.Count().Is(1);
             if (results.Count != 1) return;
@@ -84,15 +84,15 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_CheckDateのテスト()
         {
-            var syain = new Staff2();
+            var model = new Staff2();
 
-            Func<List<ValidationResult>> check = () => syain.GetValidationContext("HireDate").GetPropErrors();
+            Func<List<ValidationResult>> check = () => model.GetValidationContext("HireDate").GetPropErrors();
 
-            syain.HireDate = "2015/04/01";
+            model.HireDate = "2015/04/01";
             var results = check.Invoke();
             results.Count().Is(0);
 
-            syain.HireDate = "不正な日付データ";
+            model.HireDate = "不正な日付データ";
             results = check.Invoke();
             results.Count().Is(1);
             if (results.Count != 1) return;
@@ -100,7 +100,7 @@ namespace UnitTestProject1
             res.ErrorMessage.Is(string.Format(ErrorMessage2.CheckDate, "入社年月日"));
 
             // 時、分、秒は許可されない
-            syain.HireDate = "2015/04/01 11:11:11";
+            model.HireDate = "2015/04/01 11:11:11";
             check.Invoke();
             results.Count().Is(1);
             if (results.Count != 1) return;
@@ -111,14 +111,14 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_EmailAddressのテスト()
         {
-            var syain = new Staff2();
-            Func<List<ValidationResult>> check = () => syain.GetValidationContext("MailAddress").GetPropErrors();
+            var model = new Staff2();
+            Func<List<ValidationResult>> check = () => model.GetValidationContext("MailAddress").GetPropErrors();
 
-            syain.MailAddress = "foo@bar.com";
+            model.MailAddress = "foo@bar.com";
             var results = check.Invoke();
             results.Count().Is(0);
 
-            syain.MailAddress = "foo-bar.com";
+            model.MailAddress = "foo-bar.com";
             results = check.Invoke();
             results.Count().Is(1);
             if (results.Count != 1) return;
@@ -129,15 +129,15 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_Compareのテスト()
         {
-            var syain = new Staff2();
-            Func<List<ValidationResult>> check = () => syain.GetValidationContext("MailAddressConfirm").GetPropErrors();
+            var model = new Staff2();
+            Func<List<ValidationResult>> check = () => model.GetValidationContext("MailAddressConfirm").GetPropErrors();
 
-            syain.MailAddress = "foo@bar.com";
-            syain.MailAddressConfirm = "foo@bar.com";
+            model.MailAddress = "foo@bar.com";
+            model.MailAddressConfirm = "foo@bar.com";
             var results = check.Invoke();
             results.Count().Is(0);
 
-            syain.MailAddressConfirm = "foo@bar.net";
+            model.MailAddressConfirm = "foo@bar.net";
             results = check.Invoke();
             results.Count().Is(1);
             if (results.Count != 1) return;
@@ -148,14 +148,14 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_Urlのテスト()
         {
-            var syain = new Staff2();
-            Func<List<ValidationResult>> check = () => syain.GetValidationContext("PageUrl").GetPropErrors();
+            var model = new Staff2();
+            Func<List<ValidationResult>> check = () => model.GetValidationContext("PageUrl").GetPropErrors();
 
-            syain.PageUrl = "http://google.com";
+            model.PageUrl = "http://google.com";
             var results = check.Invoke();
             results.Count().Is(0);
 
-            syain.PageUrl = "jjj";
+            model.PageUrl = "jjj";
             results = check.Invoke();
             results.Count().Is(1);
             if (results.Count != 1) return;
@@ -166,14 +166,14 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_EnumDataTypeのテスト()
         {
-            var syain = new Staff2();
-            Func<List<ValidationResult>> check = () => syain.GetValidationContext("KoyouKbn").GetPropErrors();
+            var model = new Staff2();
+            Func<List<ValidationResult>> check = () => model.GetValidationContext("KoyouKbn").GetPropErrors();
 
-            syain.KoyouKbn = ((int)KoyouKbn.Seiki).ToString();
+            model.KoyouKbn = ((int)KoyouKbn.Seiki).ToString();
             var results = check.Invoke();
             results.Count().Is(0);
 
-            syain.KoyouKbn = "99";
+            model.KoyouKbn = "99";
             results = check.Invoke();
             results.Count().Is(1);
             if (results.Count != 1) return;
@@ -184,18 +184,18 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_RegularExpressionのテスト()
         {
-            var syain = new Staff2();
-            Func<List<ValidationResult>> check = () => syain.GetValidationContext("MailAddress2").GetPropErrors();
+            var model = new Staff2();
+            Func<List<ValidationResult>> check = () => model.GetValidationContext("MailAddress2").GetPropErrors();
 
-            syain.MailAddress2 = string.Empty;
+            model.MailAddress2 = string.Empty;
             var results = check.Invoke();
             results.Count().Is(0);
 
-            syain.MailAddress2 = "nj00@nekoni.net";
+            model.MailAddress2 = "nj00@nekoni.net";
             results = check.Invoke();
             results.Count().Is(0);
 
-            syain.MailAddress2 = "nj00@outlook.com";
+            model.MailAddress2 = "nj00@outlook.com";
             results = check.Invoke();
             results.Count().Is(1);
             if (results.Count != 1) return;
@@ -206,14 +206,14 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_CheckValidのテスト()
         {
-            var syain = new Staff2();
-            Func<List<ValidationResult>> check = () => syain.GetValidationContext("SyainNoIsNotUnique").GetPropErrors();
+            var model = new Staff2();
+            Func<List<ValidationResult>> check = () => model.GetValidationContext("SyainNoIsNotUnique").GetPropErrors();
 
-            syain.SyainNoIsNotUnique = false;
+            model.SyainNoIsNotUnique = false;
             var results = check.Invoke();
             results.Count().Is(0);
 
-            syain.SyainNoIsNotUnique = true;
+            model.SyainNoIsNotUnique = true;
             results = check.Invoke();
             results.Count().Is(1);
             if (results.Count != 1) return;
@@ -226,21 +226,21 @@ namespace UnitTestProject1
         [TestMethod]
         public void Test2_CustomValidationのテスト()
         {
-            var syain = new Staff2();
-            Func<List<ValidationResult>> check = () => syain.GetValidationContext().GetClassLevelErrors();
+            var model = new Staff2();
+            Func<List<ValidationResult>> check = () => model.GetValidationContext().GetClassLevelErrors();
 
-            syain.SyainNo = "1";
-            syain.MailAddress = "nomiya@dream.jp";
-            syain.MailAddressConfirm = "nomiya@dream.jp";
+            model.SyainNo = "1";
+            model.MailAddress = "nj00@nekoni.net";
+            model.MailAddressConfirm = "nj00@nekoni.net";
 
 
-            syain.HireDate = "2015/04/01";
-            syain.RetireDate = "2017/06/30";
+            model.HireDate = "2015/04/01";
+            model.RetireDate = "2017/06/30";
             var results = check.Invoke();
             results.Count().Is(0);
 
-            syain.HireDate = "2015/04/01";
-            syain.RetireDate = "2013/06/30";
+            model.HireDate = "2015/04/01";
+            model.RetireDate = "2013/06/30";
             results = check.Invoke();
             results.Count().Is(1);
             if (results.Count != 1) return;
