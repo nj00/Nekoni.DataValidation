@@ -37,18 +37,44 @@ namespace Nekoni.DataValidation.Validator
         public static List<ValidationResult> GetAllRequiredErrors(this ValidationContext context)
         {
             var ret = new List<ValidationResult>();
+            var ctx = new ValidationContext(context.ObjectInstance, context.ServiceContainer, context.Items);
             var props = TypeDescriptor.GetProperties(context.ObjectInstance);
             foreach (var prop in props.Cast<PropertyDescriptor>())
             {
                 var required = prop.Attributes.Cast<Attribute>().OfType<RequiredAttribute>().FirstOrDefault();
                 if (required != null)
                 {
-                    var ctx = new ValidationContext(context.ObjectInstance, context.ServiceContainer, context.Items)
-                    {
-                        MemberName = prop.Name
-                    };
-                    ret.AddErrors(ctx, required, prop.GetValue(context.ObjectInstance));
+                    ctx.MemberName = prop.Name;
+                    ret.AddErrors(ctx, required, prop.GetValue(ctx.ObjectInstance));
                 }
+            }
+            return ret;
+        }
+
+        /// <summary>
+        /// プロパティの検証エラー取得
+        /// </summary>
+        /// <param name="context">ValidationContext MemberNameプロパティが指定されていない場合は空のコレクションを返す</param>
+        /// <returns></returns>
+        private static List<ValidationResult> GetPropErrors(this ValidationContext context, PropertyDescriptor prop)
+        {
+            var ret = new List<ValidationResult>();
+            if (prop == null) return ret;
+            var value = prop.GetValue(context.ObjectInstance);
+            var validations = prop.Attributes.Cast<Attribute>().OfType<ValidationAttribute>().ToList();
+
+            // 必須チェック
+            var required = validations.FirstOrDefault(_ => _ is RequiredAttribute);
+            if (required != null)
+            {
+                ret.AddErrors(context, required, value);
+                if (ret.Count() > 0) return ret;
+            }
+
+            // その他
+            foreach (var attr in validations.Where(_ => _ != required))
+            {
+                ret.AddErrors(context, attr, value);
             }
             return ret;
         }
@@ -64,26 +90,24 @@ namespace Nekoni.DataValidation.Validator
             if (string.IsNullOrEmpty(context.MemberName)) return ret;
             var props = TypeDescriptor.GetProperties(context.ObjectInstance);
             var prop = props.Find(context.MemberName, false);
-            if (prop == null) return ret;
-            var value = prop.GetValue(context.ObjectInstance);
-            var validations = prop.Attributes.Cast<Attribute>().OfType<ValidationAttribute>().ToList();
-
-            // 必須チェック
-            var required = validations.FirstOrDefault(_ => _ is RequiredAttribute);
-            if (required != null)
-            {
-                ret.AddErrors(context, required, value);
-                if (ret.Count() > 0) return ret;
-            }
-
-            // その他
-            foreach(var attr in validations.Where(_ => _ != required))
-            {
-                ret.AddErrors(context, attr, value);
-            }
+            ret.AddRange(context.GetPropErrors(prop));
             return ret;
         }
 
+        /// <summary>
+        /// プロパティの検証エラー取得
+        /// </summary>
+        /// <param name="context">ValidationContext</param>
+        /// <param name="propetyName">プロパティ名</param>
+        /// <returns></returns>
+        public static List<ValidationResult> GetPropErrors(this ValidationContext context, string propetyName)
+        {
+            var ctx = new ValidationContext(context.ObjectInstance, context.ServiceContainer, context.Items)
+            {
+                MemberName = propetyName
+            };
+            return ctx.GetPropErrors();
+        }
 
 
         /// <summary>
@@ -94,14 +118,12 @@ namespace Nekoni.DataValidation.Validator
         public static List<ValidationResult> GetAllPropsErrors(this ValidationContext context)
         {
             var ret = new List<ValidationResult>();
+            var ctx = new ValidationContext(context.ObjectInstance, context.ServiceContainer, context.Items);
             var props = TypeDescriptor.GetProperties(context.ObjectInstance);
             foreach (var prop in props.Cast<PropertyDescriptor>())
             {
-                var ctx = new ValidationContext(context.ObjectInstance, context.ServiceContainer, context.Items)
-                {
-                    MemberName = prop.Name
-                };
-                ret.AddRange(ctx.GetPropErrors());
+                ctx.MemberName = prop.Name;
+                ret.AddRange(ctx.GetPropErrors(prop));
             }
             return ret;
         }

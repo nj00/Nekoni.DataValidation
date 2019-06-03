@@ -59,7 +59,7 @@ namespace UnitTestProject1
         {
             var model = new Staff2();
 
-            Func<List<ValidationResult>> check = () => model.ForValidation("SyainNo").GetPropErrors();
+            Func<List<ValidationResult>> check = () => model.ForValidation().GetPropErrors("SyainNo");
 
             model.SyainNo = "1234567890";
             var results = check.Invoke();
@@ -79,7 +79,7 @@ namespace UnitTestProject1
         {
             var model = new Staff2();
 
-            Func<List<ValidationResult>> check = () => model.ForValidation("Age").GetPropErrors();
+            Func<List<ValidationResult>> check = () => model.ForValidation().GetPropErrors("Age");
             model.Age = "20";
             var results = check.Invoke();
             results.Count().Is(0);
@@ -98,7 +98,7 @@ namespace UnitTestProject1
         {
             var model = new Staff2();
 
-            Func<List<ValidationResult>> check = () => model.ForValidation("HireDate").GetPropErrors();
+            Func<List<ValidationResult>> check = () => model.ForValidation().GetPropErrors("HireDate");
 
             model.HireDate = "2015/04/01";
             var results = check.Invoke();
@@ -124,7 +124,7 @@ namespace UnitTestProject1
         public void Test2_EmailAddressのテスト()
         {
             var model = new Staff2();
-            Func<List<ValidationResult>> check = () => model.ForValidation("MailAddress").GetPropErrors();
+            Func<List<ValidationResult>> check = () => model.ForValidation().GetPropErrors("MailAddress");
 
             model.MailAddress = "staff1@nekoni.net";
             var results = check.Invoke();
@@ -142,7 +142,7 @@ namespace UnitTestProject1
         public void Test2_Compareのテスト()
         {
             var model = new Staff2();
-            Func<List<ValidationResult>> check = () => model.ForValidation("MailAddressConfirm").GetPropErrors();
+            Func<List<ValidationResult>> check = () => model.ForValidation().GetPropErrors("MailAddressConfirm");
 
             model.MailAddress = "staff1@nekoni.net";
             model.MailAddressConfirm = "staff1@nekoni.net";
@@ -161,7 +161,7 @@ namespace UnitTestProject1
         public void Test2_Urlのテスト()
         {
             var model = new Staff2();
-            Func<List<ValidationResult>> check = () => model.ForValidation("PageUrl").GetPropErrors();
+            Func<List<ValidationResult>> check = () => model.ForValidation().GetPropErrors("PageUrl");
 
             model.PageUrl = "http://google.com";
             var results = check.Invoke();
