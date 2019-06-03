@@ -6,7 +6,7 @@ namespace Nekoni.DataValidation.Attributes
     /// <summary>
     /// 他のプロパティと同値か比較する属性
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = true)]
     public class CheckCompareAttribute : CompareAttribute
     {
         /// <summary>

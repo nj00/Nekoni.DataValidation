@@ -6,7 +6,7 @@ namespace Nekoni.DataValidation.Attributes
     /// <summary>
     /// 文字列長チェック属性
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
     public class CheckStringLengthAttribute : StringLengthAttribute
     {
         /// <summary>

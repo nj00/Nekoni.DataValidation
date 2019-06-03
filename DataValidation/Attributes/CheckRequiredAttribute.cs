@@ -6,7 +6,7 @@ namespace Nekoni.DataValidation.Attributes
     /// <summary>
     /// 必須チェック属性
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
     public class CheckRequiredAttribute : RequiredAttribute
     {
         /// <summary>

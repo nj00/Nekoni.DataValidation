@@ -6,7 +6,7 @@ namespace Nekoni.DataValidation.Attributes
     /// <summary>
     /// Eメールアドレスチェック属性
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
     public class CheckEmailAddressAttribute : ValidationAttribute
     {
         // sealedなので、内包する。

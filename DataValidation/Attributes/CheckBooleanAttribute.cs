@@ -6,7 +6,7 @@ namespace Nekoni.DataValidation.Attributes
     /// <summary>
     /// Boolean型チェック属性
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
     public class CheckBooleanAttributeAttribute : ValidationAttribute
     {
         /// <summary>
