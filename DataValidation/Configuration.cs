@@ -18,9 +18,7 @@ namespace Nekoni.DataValidation
         /// 既定のエラーメッセージリソース名を決定する関数
         /// </summary>
         public static Func<ValidationAttribute, string> DefaultErrorMessageResourceNameProvider { get; set; } = 
-            (va) =>  va.GetType().Name
-            .Replace("Check", String.Empty)
-            .Replace("Attribute", string.Empty) + "ErrorMessage";
+            (va) =>  va.GetType().Name.Replace("Attribute", string.Empty);
 
     }
 

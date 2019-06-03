@@ -4,71 +4,71 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
-namespace Nekoni.DataValidation.Context
+namespace Nekoni.DataValidation.ForValidation
 {
     /// <summary>
     /// ValidationContext作成
     /// </summary>
     public static class MakeValidationContextExtensions
     {
-        public static ValidationContext GetValidationContext(this object component, IServiceProvider serviceProvider, IDictionary<object, object> items,
+        public static ValidationContext ForValidation(this object instance, IServiceProvider serviceProvider, IDictionary<object, object> items,
             string memberName, string displayName)
         {
-            return new ValidationContext(component, serviceProvider, items) { MemberName = memberName, DisplayName = displayName };
+            return new ValidationContext(instance, serviceProvider, items) { MemberName = memberName, DisplayName = displayName };
         }
-        public static ValidationContext GetValidationContext(this object component, IServiceProvider serviceProvider, IDictionary<object, object> items,
+        public static ValidationContext ForValidation(this object instance, IServiceProvider serviceProvider, IDictionary<object, object> items,
             string memberName)
         {
-            return new ValidationContext(component, serviceProvider, items) { MemberName = memberName };
+            return new ValidationContext(instance, serviceProvider, items) { MemberName = memberName };
         }
-        public static ValidationContext GetValidationContext(this object component, IServiceProvider serviceProvider, IDictionary<object, object> items)
+        public static ValidationContext ForValidation(this object instance, IServiceProvider serviceProvider, IDictionary<object, object> items)
         {
-            return new ValidationContext(component, serviceProvider, items);
+            return new ValidationContext(instance, serviceProvider, items);
         }
 
-        public static ValidationContext GetValidationContext(this object component, IServiceProvider serviceProvider)
+        public static ValidationContext ForValidation(this object instance, IServiceProvider serviceProvider)
         {
-            return new ValidationContext(component, serviceProvider, null);
+            return new ValidationContext(instance, serviceProvider, null);
         }
-        public static ValidationContext GetValidationContext(this object component, IServiceProvider serviceProvider,
+        public static ValidationContext ForValidation(this object instance, IServiceProvider serviceProvider,
             string memberName, string displayName)
         {
-            return new ValidationContext(component, serviceProvider, null) { MemberName = memberName, DisplayName = displayName };
+            return new ValidationContext(instance, serviceProvider, null) { MemberName = memberName, DisplayName = displayName };
         }
-        public static ValidationContext GetValidationContext(this object component, IServiceProvider serviceProvider,
+        public static ValidationContext ForValidation(this object instance, IServiceProvider serviceProvider,
             string memberName)
         {
-            return new ValidationContext(component, serviceProvider, null) { MemberName = memberName };
+            return new ValidationContext(instance, serviceProvider, null) { MemberName = memberName };
         }
 
-        public static ValidationContext GetValidationContext(this object component, IDictionary<object, object> items)
+        public static ValidationContext ForValidation(this object instance, IDictionary<object, object> items)
         {
-            return new ValidationContext(component, null, items);
+            return new ValidationContext(instance, null, items);
         }
-        public static ValidationContext GetValidationContext(this object component, IDictionary<object, object> items,
+        public static ValidationContext ForValidation(this object instance, IDictionary<object, object> items,
             string memberName, string displayName)
         {
-            return new ValidationContext(component, null, items) { MemberName = memberName, DisplayName = displayName };
+            return new ValidationContext(instance, null, items) { MemberName = memberName, DisplayName = displayName };
         }
-        public static ValidationContext GetValidationContext(this object component, IDictionary<object, object> items,
+        public static ValidationContext ForValidation(this object instance, IDictionary<object, object> items,
             string memberName)
         {
-            return new ValidationContext(component, null, items) { MemberName = memberName };
+            return new ValidationContext(instance, null, items) { MemberName = memberName };
         }
 
-        public static ValidationContext GetValidationContext(this object component)
+        public static ValidationContext ForValidation(this object instance)
         {
-            return new ValidationContext(component);
+            return new ValidationContext(instance);
         }
 
-        public static ValidationContext GetValidationContext(this object component, string memberName, string displayName)
+        public static ValidationContext ForValidation(this object instance, string memberName, string displayName)
         {
-            return new ValidationContext(component) { MemberName = memberName, DisplayName = displayName };
+            return new ValidationContext(instance) { MemberName = memberName, DisplayName = displayName };
         }
 
-        public static ValidationContext GetValidationContext(this object component, string memberName)
+        public static ValidationContext ForValidation(this object instance, string memberName)
         {
-            return new ValidationContext(component) { MemberName = memberName };
+            return new ValidationContext(instance) { MemberName = memberName };
         }
     }
 }

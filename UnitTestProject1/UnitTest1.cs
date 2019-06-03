@@ -15,7 +15,6 @@ namespace UnitTestProject1
         {
             // エラーメッセージリソースの設定
             Configuration.DefaultErrorMessageResourceType = typeof(ErrorMessage);
-            Configuration.DefaultErrorMessageResourceNameProvider = (attr) => attr.GetType().Name.Replace("Attribute", string.Empty);
         }
 
         [TestMethod]

@@ -62,34 +62,24 @@ namespace Nekoni.DataValidation.Validator
         {
             var ret = new List<ValidationResult>();
             if (string.IsNullOrEmpty(context.MemberName)) return ret;
-
-            var ctx = new ValidationContext(context.ObjectInstance, context.ServiceContainer, context.Items)
-            {
-                MemberName = context.MemberName,
-                DisplayName = context.DisplayName ?? string.Empty
-            };
-
-            var props = TypeDescriptor.GetProperties(ctx.ObjectInstance);
-            var prop = props.Find(ctx.MemberName, false);
-            var value = prop.GetValue(ctx.ObjectInstance);
-            if (string.IsNullOrEmpty(ctx.DisplayName))
-            {
-                ctx.DisplayName = prop.DisplayName;
-            }
+            var props = TypeDescriptor.GetProperties(context.ObjectInstance);
+            var prop = props.Find(context.MemberName, false);
+            if (prop == null) return ret;
+            var value = prop.GetValue(context.ObjectInstance);
             var validations = prop.Attributes.Cast<Attribute>().OfType<ValidationAttribute>().ToList();
 
             // 必須チェック
             var required = validations.FirstOrDefault(_ => _ is RequiredAttribute);
             if (required != null)
             {
-                ret.AddErrors(ctx, required, value);
+                ret.AddErrors(context, required, value);
                 if (ret.Count() > 0) return ret;
             }
 
             // その他
             foreach(var attr in validations.Where(_ => _ != required))
             {
-                ret.AddErrors(ctx, attr, value);
+                ret.AddErrors(context, attr, value);
             }
             return ret;
         }
