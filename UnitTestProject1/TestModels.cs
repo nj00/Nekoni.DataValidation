@@ -1,5 +1,5 @@
 ﻿using System;
-using Nekoni.Validation.Attributes;
+using Nekoni.DataValidation.Attributes;
 using System.Text.RegularExpressions;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;

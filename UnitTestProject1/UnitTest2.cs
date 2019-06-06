@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Nekoni.Validation;
-using Nekoni.Validation.Context;
-using Nekoni.Validation.Validator;
+using Nekoni.DataValidation;
+using Nekoni.DataValidation.Context;
+using Nekoni.DataValidation.Validator;
 using TestModels;
 using System.Linq;
 

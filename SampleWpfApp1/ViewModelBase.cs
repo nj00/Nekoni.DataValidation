@@ -6,8 +6,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Nekoni.Validation.Context;
-using Nekoni.Validation.Validator;
+using Nekoni.DataValidation.Context;
+using Nekoni.DataValidation.Validator;
 
 namespace SampleWpfApp1
 {

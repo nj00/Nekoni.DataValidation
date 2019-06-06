@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestModels;
 using System.Linq;
-using Nekoni.Validation;
+using Nekoni.DataValidation;
 
 namespace UnitTestProject1
 {

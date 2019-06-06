@@ -4,9 +4,9 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-using Nekoni.Validation.Context;
+using Nekoni.DataValidation.Context;
 
-namespace Nekoni.Validation.Validator
+namespace Nekoni.DataValidation.Validator
 {
     /// <summary>
     /// コンテキストクラス

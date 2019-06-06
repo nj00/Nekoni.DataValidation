@@ -5,9 +5,9 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
-using Nekoni.Validation.Validator;
+using Nekoni.DataValidation.Validator;
 
-namespace Nekoni.Validation.Context
+namespace Nekoni.DataValidation.Context
 {
     /// <summary>
     /// コンテキストクラス用拡張メソッド

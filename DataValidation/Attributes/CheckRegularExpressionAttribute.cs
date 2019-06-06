@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Nekoni.Validation.Attributes
+namespace Nekoni.DataValidation.Attributes
 {
     /// <summary>
     /// 正規表現チェック属性
