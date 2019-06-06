@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
-namespace Nekoni.DataValidation
+namespace Nekoni.Validation
 {
     /// <summary>
     /// 基本設定クラス

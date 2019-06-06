@@ -2,73 +2,36 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
+using Nekoni.Validation.Validator;
 
-namespace Nekoni.DataValidation.ForValidation
+namespace Nekoni.Validation.Context
 {
     /// <summary>
-    /// ValidationContext作成
+    /// コンテキストクラス用拡張メソッド
     /// </summary>
-    public static class MakeValidationContextExtensions
+    public static class MakeForValidationExtensions
     {
-        public static ValidationContext ForValidation(this object instance, IServiceProvider serviceProvider, IDictionary<object, object> items,
-            string memberName, string displayName)
+        public static ForValidation ForValidation(this object instance, IServiceProvider serviceProvider, IDictionary<object, object> items)
         {
-            return new ValidationContext(instance, serviceProvider, items) { MemberName = memberName, DisplayName = displayName };
-        }
-        public static ValidationContext ForValidation(this object instance, IServiceProvider serviceProvider, IDictionary<object, object> items,
-            string memberName)
-        {
-            return new ValidationContext(instance, serviceProvider, items) { MemberName = memberName };
-        }
-        public static ValidationContext ForValidation(this object instance, IServiceProvider serviceProvider, IDictionary<object, object> items)
-        {
-            return new ValidationContext(instance, serviceProvider, items);
+            return new ForValidation(new ValidationContext(instance, serviceProvider, items));
         }
 
-        public static ValidationContext ForValidation(this object instance, IServiceProvider serviceProvider)
+        public static ForValidation ForValidation(this object instance, IServiceProvider serviceProvider)
         {
-            return new ValidationContext(instance, serviceProvider, null);
-        }
-        public static ValidationContext ForValidation(this object instance, IServiceProvider serviceProvider,
-            string memberName, string displayName)
-        {
-            return new ValidationContext(instance, serviceProvider, null) { MemberName = memberName, DisplayName = displayName };
-        }
-        public static ValidationContext ForValidation(this object instance, IServiceProvider serviceProvider,
-            string memberName)
-        {
-            return new ValidationContext(instance, serviceProvider, null) { MemberName = memberName };
+            return new ForValidation(new ValidationContext(instance, serviceProvider, null));
         }
 
-        public static ValidationContext ForValidation(this object instance, IDictionary<object, object> items)
+        public static ForValidation ForValidation(this object instance, IDictionary<object, object> items)
         {
-            return new ValidationContext(instance, null, items);
-        }
-        public static ValidationContext ForValidation(this object instance, IDictionary<object, object> items,
-            string memberName, string displayName)
-        {
-            return new ValidationContext(instance, null, items) { MemberName = memberName, DisplayName = displayName };
-        }
-        public static ValidationContext ForValidation(this object instance, IDictionary<object, object> items,
-            string memberName)
-        {
-            return new ValidationContext(instance, null, items) { MemberName = memberName };
+            return new ForValidation(new ValidationContext(instance, null, items));
         }
 
-        public static ValidationContext ForValidation(this object instance)
+        public static ForValidation ForValidation(this object instance)
         {
-            return new ValidationContext(instance);
-        }
-
-        public static ValidationContext ForValidation(this object instance, string memberName, string displayName)
-        {
-            return new ValidationContext(instance) { MemberName = memberName, DisplayName = displayName };
-        }
-
-        public static ValidationContext ForValidation(this object instance, string memberName)
-        {
-            return new ValidationContext(instance) { MemberName = memberName };
+            return new ForValidation(new ValidationContext(instance));
         }
     }
 }

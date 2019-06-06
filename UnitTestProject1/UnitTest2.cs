@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Nekoni.DataValidation;
-using Nekoni.DataValidation.ForValidation;
-using Nekoni.DataValidation.Validator;
+using Nekoni.Validation;
+using Nekoni.Validation.Context;
+using Nekoni.Validation.Validator;
 using TestModels;
 using System.Linq;
 
@@ -19,14 +19,7 @@ namespace UnitTestProject1
             Configuration.DefaultErrorMessageResourceType = typeof(ErrorMessage);
             Configuration.DefaultErrorMessageResourceNameProvider = (attr) => {
                 var attrName = attr.GetType().Name.Replace("Attribute", string.Empty);
-                if (attrName.StartsWith("Check"))
-                {
-                    return attrName;
-                }
-                else
-                {
-                    return $"Check{attrName}";
-                }
+                return attrName.StartsWith("Check") ? attrName : $"Check{attrName}";
             };
         }
 
@@ -34,13 +27,14 @@ namespace UnitTestProject1
         public void Test1_ErrorMessageResourceからのメッセージ取得テスト()
         {
             var model = new Staff2();
-            var context = model.ForValidation("MailAddress", DisplayNames.ResourceManager.GetString("MailAddress"));
-            var results = context.GetPropErrors();
+            var displayName = DisplayNames.ResourceManager.GetString("MailAddress");
+            var context = model.ForValidation();
+            var results = context.GetPropErrors("MailAddress", displayName);
             results.Count.Is(1);
             if (results.Count != 1) return;
 
             var res = results.First();
-            res.ErrorMessage.Is(string.Format(ErrorMessage.CheckRequired, context.DisplayName));
+            res.ErrorMessage.Is(string.Format(ErrorMessage.CheckRequired, displayName));
 
         }
 
@@ -179,7 +173,7 @@ namespace UnitTestProject1
         public void Test2_EnumDataTypeのテスト()
         {
             var model = new Staff2();
-            Func<List<ValidationResult>> check = () => model.ForValidation("KoyouKbn").GetPropErrors();
+            Func<List<ValidationResult>> check = () => model.ForValidation().GetPropErrors("KoyouKbn");
 
             model.KoyouKbn = ((int)KoyouKbn.Seiki).ToString();
             var results = check.Invoke();
@@ -197,7 +191,7 @@ namespace UnitTestProject1
         public void Test2_RegularExpressionのテスト()
         {
             var model = new Staff2();
-            Func<List<ValidationResult>> check = () => model.ForValidation("MailAddress2").GetPropErrors();
+            Func<List<ValidationResult>> check = () => model.ForValidation().GetPropErrors("MailAddress2");
 
             model.MailAddress2 = string.Empty;
             var results = check.Invoke();
@@ -219,7 +213,7 @@ namespace UnitTestProject1
         public void Test2_CheckValidのテスト()
         {
             var model = new Staff2();
-            Func<List<ValidationResult>> check = () => model.ForValidation("SyainNoIsNotUnique").GetPropErrors();
+            Func<List<ValidationResult>> check = () => model.ForValidation().GetPropErrors("SyainNoIsNotUnique");
 
             model.SyainNoIsNotUnique = false;
             var results = check.Invoke();
@@ -259,6 +253,32 @@ namespace UnitTestProject1
             var res = results.First();
             res.ErrorMessage.Is(ErrorMessage.InvalidRetireDate);
 
+        }
+
+        [TestMethod]
+        public void Test3_全プロパティの検証テスト()
+        {
+            var model = new Staff2();
+            Func<List<ValidationResult>> check = () => model.ForValidation().GetAllErrors();
+
+            var results = check.Invoke();
+            results.Count.Is(4);        // 必須項目は４つ
+
+            model.SyainNo = "1";
+            model.MailAddress = "staff1@nekoni.net";
+            model.MailAddressConfirm = "staff1@nekoni.net";
+            model.HireDate = "2015/04/01";
+            model.RetireDate = "2017/06/30";
+            results = check.Invoke();
+            results.Count.Is(0);
+
+            model.SyainNo = "1";
+            model.MailAddress = "staff1@nekoni.net";
+            model.MailAddressConfirm = "staff1@nekoni.net";
+            model.HireDate = "2015/04/01";
+            model.RetireDate = "2011/06/30";
+            results = check.Invoke();
+            results.Count.Is(1);    // クラスレベル
         }
     }
 }

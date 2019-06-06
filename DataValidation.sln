@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataValidation", "DataValidation\DataValidation.csproj", "{79222F02-3563-401D-AF16-CCF378A03049}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{F080D959-3629-4C41-A7D3-BB2EBD8E8BCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWpfApp1", "SampleWpfApp1\SampleWpfApp1.csproj", "{0F8CA483-5771-4D2F-AA65-20BA9B4A7B92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{F080D959-3629-4C41-A7D3-BB2EBD8E8BCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F080D959-3629-4C41-A7D3-BB2EBD8E8BCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F080D959-3629-4C41-A7D3-BB2EBD8E8BCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F8CA483-5771-4D2F-AA65-20BA9B4A7B92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F8CA483-5771-4D2F-AA65-20BA9B4A7B92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F8CA483-5771-4D2F-AA65-20BA9B4A7B92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F8CA483-5771-4D2F-AA65-20BA9B4A7B92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

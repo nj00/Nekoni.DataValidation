@@ -1,5 +1,5 @@
 ﻿using System;
-using Nekoni.DataValidation.Attributes;
+using Nekoni.Validation.Attributes;
 using System.Text.RegularExpressions;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
@@ -113,7 +113,10 @@ namespace TestModels
         [CheckEnumDataType(typeof(KoyouKbn))]
         public string KoyouKbn { get; set; }
 
-
+        /// <summary>
+        /// システム情報(検証属性の無いプロパティ）
+        /// </summary>
+        public string SystemInfo { get; set; }
 
         /// <summary>
         /// 退職年月日の検証メソッド
@@ -236,6 +239,10 @@ namespace TestModels
         [EnumDataType(typeof(KoyouKbn))]
         public string KoyouKbn { get; set; }
 
+        /// <summary>
+        /// システム情報(検証属性の無いプロパティ）
+        /// </summary>
+        public string SystemInfo { get; set; }
 
 
         /// <summary>

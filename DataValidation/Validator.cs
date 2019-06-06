@@ -4,13 +4,106 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
+using Nekoni.Validation.Context;
 
-namespace Nekoni.DataValidation.Validator
+namespace Nekoni.Validation.Validator
 {
+    /// <summary>
+    /// コンテキストクラス
+    /// </summary>
+    public class ForValidation
+    {
+        /// <summary>
+        /// 検証属性のDictionary
+        /// </summary>
+        private static Dictionary<Type, Dictionary<string, List<ValidationAttribute>>> TypeAttributes =
+            new Dictionary<Type, Dictionary<string, List<ValidationAttribute>>>();
+
+        private static string ClassLevelKey = "@";
+
+        private Dictionary<string, object> PropertyValues = new Dictionary<string, object>();
+
+        public ValidationContext Context { get; set; }
+
+
+        public ForValidation(ValidationContext context)
+        {
+            Context = context;
+
+            // Typeの情報収集
+            AddTypeInfo(context.ObjectType);
+
+            // 値リスト(検証属性のあるものだけ)
+            foreach (var prop in context.ObjectType.GetProperties())
+            {
+                if (GetPropertyAttributes(prop.Name).Count() == 0) continue;
+
+                PropertyValues.Add(prop.Name, prop.GetValue(Context.ObjectInstance));
+            }
+        }
+
+        /// <summary>
+        /// Typeの情報収集
+        /// </summary>
+        /// <param name="type"></param>
+        private void AddTypeInfo(Type type)
+        {
+            if (TypeAttributes.ContainsKey(type)) return;
+
+            void AddAttributes(string key, IEnumerable<ValidationAttribute> validationAttributes)
+            {
+                if (TypeAttributes.ContainsKey(type))
+                {
+                    TypeAttributes[type].Add(key, validationAttributes.ToList());
+                }
+                else
+                {
+                    var dic = new Dictionary<string, List<ValidationAttribute>>();
+                    dic.Add(key, validationAttributes.ToList());
+                    TypeAttributes.Add(type, dic);
+                }
+            }
+
+            // Class Attributes
+            var classAttributes = type.GetCustomAttributes(true).OfType<ValidationAttribute>();
+            AddAttributes(ClassLevelKey, classAttributes);
+
+            // Property Attributes
+            foreach (var prop in type.GetProperties().Cast<PropertyInfo>())
+            {
+                var propAttributes = prop.GetCustomAttributes().OfType<ValidationAttribute>();
+                AddAttributes(prop.Name, propAttributes);
+            }
+        }
+
+        public List<ValidationAttribute> GetClassAttributes()
+        {
+            return TypeAttributes[Context.ObjectType][ClassLevelKey];
+        }
+
+        public List<ValidationAttribute> GetPropertyAttributes(string propertyName)
+        {
+            var typeAttributes = TypeAttributes[Context.ObjectType];
+            if (!typeAttributes.ContainsKey(propertyName)) return new List<ValidationAttribute>();
+            return typeAttributes[propertyName];
+        }
+
+        public Dictionary<string, object> GetPropertyValues()
+        {
+            return PropertyValues;
+        }
+
+        public object GetPropertyValue(string propertyName)
+        {
+            if (!PropertyValues.ContainsKey(propertyName)) return null;
+            return PropertyValues[propertyName];
+        }
+    }
+
     /// <summary>
     /// ValidationContext 拡張メソッド（検証メソッド）
     /// </summary>
-    public static class ValidationContextExtensions
+    public static class ForValidationExtensions
     {
         /// <summary>
         /// 検証結果を追加する
@@ -34,16 +127,17 @@ namespace Nekoni.DataValidation.Validator
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static List<ValidationResult> GetAllRequiredErrors(this ValidationContext context)
+        public static List<ValidationResult> GetAllRequiredErrors(this ForValidation forValidation)
         {
+            var context = forValidation.Context;
             var ret = new List<ValidationResult>();
-            var ctx = new ValidationContext(context.ObjectInstance, context.ServiceContainer, context.Items);
             var props = TypeDescriptor.GetProperties(context.ObjectInstance);
             foreach (var prop in props.Cast<PropertyDescriptor>())
             {
-                var required = prop.Attributes.Cast<Attribute>().OfType<RequiredAttribute>().FirstOrDefault();
+                var required = forValidation.GetPropertyAttributes(prop.Name).OfType<RequiredAttribute>().FirstOrDefault();
                 if (required != null)
                 {
+                    var ctx = new ValidationContext(context.ObjectInstance, context, context.Items);
                     ctx.MemberName = prop.Name;
                     ret.AddErrors(ctx, required, prop.GetValue(ctx.ObjectInstance));
                 }
@@ -51,30 +145,39 @@ namespace Nekoni.DataValidation.Validator
             return ret;
         }
 
+
         /// <summary>
         /// プロパティの検証エラー取得
         /// </summary>
-        /// <param name="context">ValidationContext MemberNameプロパティが指定されていない場合は空のコレクションを返す</param>
+        /// <param name="forValidation"></param>
+        /// <param name="propertyName"></param>
+        /// <param name="displayName"></param>
         /// <returns></returns>
-        private static List<ValidationResult> GetPropErrors(this ValidationContext context, PropertyDescriptor prop)
+        public static List<ValidationResult> GetPropErrors(this ForValidation forValidation, string propertyName, string displayName)
         {
             var ret = new List<ValidationResult>();
-            if (prop == null) return ret;
-            var value = prop.GetValue(context.ObjectInstance);
-            var validations = prop.Attributes.Cast<Attribute>().OfType<ValidationAttribute>().ToList();
+            var validations = forValidation.GetPropertyAttributes(propertyName);
+            if (validations.Count() == 0) return ret;
+
+            var context = forValidation.Context;
+            var ctx = new ValidationContext(context.ObjectInstance, context, context.Items);
+            ctx.MemberName = propertyName;
+            if (!string.IsNullOrEmpty(displayName))
+                ctx.DisplayName = displayName;
+            var value = forValidation.GetPropertyValue(propertyName);
 
             // 必須チェック
             var required = validations.FirstOrDefault(_ => _ is RequiredAttribute);
             if (required != null)
             {
-                ret.AddErrors(context, required, value);
+                ret.AddErrors(ctx, required, value);
                 if (ret.Count() > 0) return ret;
             }
 
             // その他
-            foreach (var attr in validations.Where(_ => _ != required))
+            foreach (var attr in validations.Where(_ => required == null || _ != required))
             {
-                ret.AddErrors(context, attr, value);
+                ret.AddErrors(ctx, attr, value);
             }
             return ret;
         }
@@ -82,48 +185,26 @@ namespace Nekoni.DataValidation.Validator
         /// <summary>
         /// プロパティの検証エラー取得
         /// </summary>
-        /// <param name="context">ValidationContext MemberNameプロパティが指定されていない場合は空のコレクションを返す</param>
-        /// <returns></returns>
-        public static List<ValidationResult> GetPropErrors(this ValidationContext context)
+        /// <param name="forValidation"></param>
+        /// <param name="propertyName"></param>
+        public static List<ValidationResult> GetPropErrors(this ForValidation forValidation, string propertyName)
         {
-            var ret = new List<ValidationResult>();
-            if (string.IsNullOrEmpty(context.MemberName)) return ret;
-            var props = TypeDescriptor.GetProperties(context.ObjectInstance);
-            var prop = props.Find(context.MemberName, false);
-            ret.AddRange(context.GetPropErrors(prop));
-            return ret;
+            return forValidation.GetPropErrors(propertyName, string.Empty);
         }
-
-        /// <summary>
-        /// プロパティの検証エラー取得
-        /// </summary>
-        /// <param name="context">ValidationContext</param>
-        /// <param name="propetyName">プロパティ名</param>
-        /// <returns></returns>
-        public static List<ValidationResult> GetPropErrors(this ValidationContext context, string propetyName)
-        {
-            var ctx = new ValidationContext(context.ObjectInstance, context.ServiceContainer, context.Items)
-            {
-                MemberName = propetyName
-            };
-            return ctx.GetPropErrors();
-        }
-
 
         /// <summary>
         /// 全プロパティの検証エラー取得
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static List<ValidationResult> GetAllPropsErrors(this ValidationContext context)
+        public static List<ValidationResult> GetAllPropsErrors(this ForValidation forValidation)
         {
             var ret = new List<ValidationResult>();
-            var ctx = new ValidationContext(context.ObjectInstance, context.ServiceContainer, context.Items);
-            var props = TypeDescriptor.GetProperties(context.ObjectInstance);
-            foreach (var prop in props.Cast<PropertyDescriptor>())
+            var ctx = forValidation.Context;
+            foreach (var prop in forValidation.GetPropertyValues().Keys)
             {
-                ctx.MemberName = prop.Name;
-                ret.AddRange(ctx.GetPropErrors(prop));
+                ctx.MemberName = prop;
+                ret.AddRange(forValidation.GetPropErrors(prop));
             }
             return ret;
         }
@@ -133,12 +214,12 @@ namespace Nekoni.DataValidation.Validator
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static List<ValidationResult> GetClassLevelErrors(this ValidationContext context)
+        public static List<ValidationResult> GetClassLevelErrors(this ForValidation forValidation)
         {
+            var context = forValidation.Context;
             var ret = new List<ValidationResult>();
-            if (!string.IsNullOrEmpty(context.MemberName)) return ret;
             var value = context.ObjectInstance;
-            var validations = TypeDescriptor.GetAttributes(context.ObjectInstance).Cast<Attribute>().OfType<ValidationAttribute>();
+            var validations = forValidation.GetClassAttributes();
 
             foreach (var attr in validations)
             {
@@ -152,18 +233,12 @@ namespace Nekoni.DataValidation.Validator
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static List<ValidationResult> GetAllErrors(this ValidationContext context)
+        public static List<ValidationResult> GetAllErrors(this ForValidation forValidation)
         {
-            // 必須エラーが有ったら必須エラーだけ返す
-            var requireds = context.GetAllRequiredErrors();
-            if (requireds.Count() > 0)
-            {
-                return requireds;
-            }
-
             var ret = new List<ValidationResult>();
-            ret.AddRange(context.GetAllPropsErrors());
-            ret.AddRange(context.GetClassLevelErrors());
+            ret.AddRange(forValidation.GetAllPropsErrors());
+            if (ret.Count() == 0)            
+                ret.AddRange(forValidation.GetClassLevelErrors());
             return ret;
         }
     }

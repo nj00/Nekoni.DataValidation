@@ -71,12 +71,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataValidation\DataValidation.csproj">
-      <Project>{79222f02-3563-401d-af16-ccf378a03049}</Project>
-      <Name>DataValidation</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="DisplayNames.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DisplayNames.Designer.cs</LastGenOutput>
@@ -85,6 +79,12 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ErrorMessage.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataValidation\DataValidation.csproj">
+      <Project>{79222f02-3563-401d-af16-ccf378a03049}</Project>
+      <Name>DataValidation</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
