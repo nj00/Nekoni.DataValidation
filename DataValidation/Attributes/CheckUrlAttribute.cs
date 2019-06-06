@@ -6,7 +6,7 @@ namespace Nekoni.Validation.Attributes
     /// <summary>
     /// Urlチェック属性
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class CheckUrlAttribute : ValidationAttribute
     {
         // sealedなので、内包する。
