@@ -6,52 +6,22 @@
         xmlns:local="clr-namespace:SampleWpfApp1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Window.DataContext>
-        <local:MainWindowViewModel/>
-    </Window.DataContext>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <StackPanel Orientation="Vertical" Margin="12">
-            <StackPanel Orientation="Horizontal" Margin="2">
-                <TextBlock HorizontalAlignment="Left" Text="社員番号" VerticalAlignment="Top" Height="24" Width="120" />
-                <TextBox Text="{Binding Path=SyainNo, Mode=TwoWay}" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="148" Margin="5,0" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="2">
-                <TextBlock HorizontalAlignment="Left" Text="メールアドレス" VerticalAlignment="Top" Height="24" Width="120" />
-                <TextBox Text="{Binding Path=MailAddress, Mode=TwoWay}" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="148" Margin="5,0" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="2">
-                <TextBlock HorizontalAlignment="Left" Text="メールアドレス（確認）" VerticalAlignment="Top" Height="24" Width="120" />
-                <TextBox Text="{Binding Path=MailAddressConfirm, Mode=TwoWay}" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="148" Margin="5,0" />
-            </StackPanel>
-            <Button Content="Button" Height="23" HorizontalAlignment="Left" Margin="0,20" VerticalAlignment="Top" Width="75" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Orientation="Vertical" Margin="5">
+            <TextBlock Text="通常のViewModel" />
+            <Border BorderThickness="1" BorderBrush="AliceBlue">
+                <local:UserControl1 />
+            </Border>
         </StackPanel>
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding AllErrors}">
-            <ItemsControl.Template>
-                <ControlTemplate TargetType="ItemsControl">
-                    <Border BorderThickness="1"
-                        BorderBrush="Black"
-                        Background="Azure">
-                        <ItemsPresenter Margin="10" />
-                    </Border>
-                </ControlTemplate>
-            </ItemsControl.Template>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Vertical" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="5" Text="{Binding MemberNames[0]}" />
-                        <TextBlock Margin="5" Text="{Binding ErrorMessage}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <StackPanel Grid.Column="1" Orientation="Vertical"  Margin="5">
+            <TextBlock Text="ReactivePropertyのViewModel" />
+            <Border BorderThickness="1" BorderBrush="AliceBlue">
+                <local:UserControl2 />
+            </Border>
+        </StackPanel>
     </Grid>
 </Window>

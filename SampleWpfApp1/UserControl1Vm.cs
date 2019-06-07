@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-using Nekoni.DataValidation.Attributes;
 
 namespace SampleWpfApp1
 {
-    public class MainWindowViewModel: ViewModelBase
+    public class UserContorol1Vm: ViewModelBase
     {
         /// <summary>
         /// 社員番号
@@ -16,6 +15,7 @@ namespace SampleWpfApp1
         [Display(Name = "社員番号")]
         [Required]
         [StringLength(10)]
+
         public string SyainNo
         {
             get
@@ -70,12 +70,9 @@ namespace SampleWpfApp1
         private string _MailAddressConfirm;
 
 
-        //public ReactiveProperty<string> MailAddressConfirm { get; } 
-
-
-        public MainWindowViewModel()
+        public UserContorol1Vm(): base()
         {
-            //MailAddressConfirm = new ReactiveProperty<string>().SetValidateAttribute(() => this.MailAddressConfirm);
+            RaiseErrorChanged(string.Empty);
         }
     }
 }

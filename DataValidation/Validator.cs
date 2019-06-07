@@ -112,7 +112,7 @@ namespace Nekoni.DataValidation.Validator
         /// <param name="context">検証コンテキスト</param>
         /// <param name="va">検証属性</param>
         /// <param name="value">検査対象の値</param>
-        private static void AddErrors(this IList<ValidationResult> errors, ValidationContext context, ValidationAttribute va, object value)
+        public static void AddErrors(this IList<ValidationResult> errors, ValidationContext context, ValidationAttribute va, object value)
         {
             va.SetupErrorMessageResource();
             var result = va.GetValidationResult(value, context);

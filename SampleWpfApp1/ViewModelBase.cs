@@ -23,7 +23,6 @@ namespace SampleWpfApp1
         public ViewModelBase()
         {
             _AllErrors = new List<ValidationResult>();
-            RaiseErrorChanged(string.Empty);
         }
 
         public System.Collections.IEnumerable GetErrors(string propertyName)
@@ -45,13 +44,13 @@ namespace SampleWpfApp1
             RaisePropertyChanged("AllErrors");
             RaisePropertyChanged("HasErrors");
         }
-        private void RaisePropertyChanged(string propertyName)
+        protected void RaisePropertyChanged(string propertyName)
         {
             var h = PropertyChanged;
             if (h == null) return;
             h(this, new PropertyChangedEventArgs(propertyName));
         }
-        private void RaiseErrorChanged(string propertyName)
+        protected void RaiseErrorChanged(string propertyName)
         {
             _AllErrors = this.ForValidation().GetAllErrors().ToList();
 
@@ -75,6 +74,10 @@ namespace SampleWpfApp1
             get
             {
                 return _AllErrors;
+            }
+            protected set
+            {
+                _AllErrors = value;
             }
         }
         private List<ValidationResult> _AllErrors;

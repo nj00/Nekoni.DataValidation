@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="SampleWpfApp1.UserControl2"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SampleWpfApp1"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="399.046">
+    <d:DesignerProperties.DesignStyle>
+        <Style TargetType="UserControl">
+            <Setter Property="Background" Value="White"/>
+        </Style>
+    </d:DesignerProperties.DesignStyle>
+    <UserControl.DataContext>
+        <local:UserContorol2Vm/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Margin="12">
+            <StackPanel Orientation="Horizontal" Margin="2">
+                <TextBlock HorizontalAlignment="Left" Text="社員番号" VerticalAlignment="Top" Height="24" Width="120" />
+                <TextBox Text="{Binding Path=SyainNo.Value, Mode=TwoWay}" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="148" Margin="5,0" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="2">
+                <TextBlock HorizontalAlignment="Left" Text="メールアドレス" VerticalAlignment="Top" Height="24" Width="120" />
+                <TextBox Text="{Binding Path=MailAddress.Value, Mode=TwoWay}" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="148" Margin="5,0" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="2">
+                <TextBlock HorizontalAlignment="Left" Text="メールアドレス（確認）" VerticalAlignment="Top" Height="24" Width="120" />
+                <TextBox Text="{Binding Path=MailAddressConfirm.Value, Mode=TwoWay}" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="148" Margin="5,0" />
+            </StackPanel>
+        </StackPanel>
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding AllErrors}">
+            <ItemsControl.Template>
+                <ControlTemplate TargetType="ItemsControl">
+                    <Border BorderThickness="1"
+                        BorderBrush="Black"
+                        Background="Azure">
+                        <ItemsPresenter Margin="10" />
+                    </Border>
+                </ControlTemplate>
+            </ItemsControl.Template>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="5" Text="{Binding MemberNames[0]}" />
+                        <TextBlock Margin="5" Text="{Binding ErrorMessage}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>
