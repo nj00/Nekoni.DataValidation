@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestModels;
 using System.Linq;
 using Nekoni.DataValidation;
+using Nekoni.DataValidation.Attributes;
 
 namespace UnitTestProject1
 {
@@ -15,6 +16,9 @@ namespace UnitTestProject1
         {
             // エラーメッセージリソースの設定
             Configuration.DefaultErrorMessageResourceType = typeof(ErrorMessage);
+
+            // 最優先検証アトリビュート
+            Configuration.FirstValidationAttributesProvider = () => new[] { typeof(CheckRequiredAttribute) };
         }
 
         [TestMethod]

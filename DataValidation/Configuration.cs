@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+
 
 namespace Nekoni.DataValidation
 {
@@ -17,8 +19,14 @@ namespace Nekoni.DataValidation
         /// <summary>
         /// 既定のエラーメッセージリソース名を決定する関数
         /// </summary>
-        public static Func<ValidationAttribute, string> DefaultErrorMessageResourceNameProvider { get; set; } = 
-            (va) =>  va.GetType().Name.Replace("Attribute", string.Empty);
+        public static Func<ValidationAttribute, string> DefaultErrorMessageResourceNameProvider { get; set; } =
+            (va) => va.GetType().Name.Replace("Attribute", string.Empty);
+
+        /// <summary>
+        /// 最優先検証を行うValidationAttributeを決定する関数。エラーが有ったらその他の検証は行わない。
+        /// </summary>
+        public static Func<IEnumerable<Type>> FirstValidationAttributesProvider { get; set; } = 
+            () => new[] { typeof(RequiredAttribute) };
 
     }
 
