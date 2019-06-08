@@ -46,7 +46,7 @@ namespace SampleWpfApp1
                 .Merge(MailAddress.ObserveErrorChanged)
                 .Merge(MailAddressConfirm.ObserveErrorChanged)
                 .Where(e => e != null)
-                .Select(e => e.OfType<ValidationResult>().FirstOrDefault())
+                .SelectMany(e => e.OfType<ValidationResult>())
                 .ToReadOnlyReactiveCollection();
         }
 
