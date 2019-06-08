@@ -32,8 +32,12 @@
                 <TextBlock HorizontalAlignment="Left" Text="メールアドレス（確認）" VerticalAlignment="Top" Height="24" Width="120" />
                 <TextBox Text="{Binding Path=MailAddressConfirm, Mode=TwoWay}" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="148" Margin="5,0" />
             </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="2">
+                <TextBlock HorizontalAlignment="Left" Text="雇用区分" VerticalAlignment="Top" Height="24" Width="120" />
+                <TextBox Text="{Binding Path=KoyouKbn, Mode=TwoWay}" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="148" Margin="5,0" />
+            </StackPanel>
         </StackPanel>
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding AllErrors}">
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding AllErrors}" Margin="5">
             <ItemsControl.Template>
                 <ControlTemplate TargetType="ItemsControl">
                     <Border BorderThickness="1"

@@ -18,10 +18,7 @@ namespace SampleWpfApp1
 
         public string SyainNo
         {
-            get
-            {
-                return _SyainNo;
-            }
+            get => _SyainNo;
             set
             {
                 if (_SyainNo == value) return;
@@ -38,10 +35,7 @@ namespace SampleWpfApp1
         [Required]
         [EmailAddress]
         public string MailAddress {
-            get
-            {
-                return _MailAddress;
-            }
+            get =>  _MailAddress;
             set
             {
                 if (_MailAddress == value) return;
@@ -56,10 +50,7 @@ namespace SampleWpfApp1
         [Compare("MailAddress", ErrorMessage="{0}がメールアドレスと等しくありません。")]
         public string MailAddressConfirm
         {
-            get
-            {
-                return _MailAddressConfirm;
-            }
+            get => _MailAddressConfirm;
             set
             {
                 if (_MailAddressConfirm == value) return;
@@ -69,6 +60,22 @@ namespace SampleWpfApp1
         }
         private string _MailAddressConfirm;
 
+        /// <summary>
+        /// 雇用区分
+        /// </summary>
+        [Display(Name = "雇用区分")]
+        [EnumDataType(typeof(KoyouKbn))]
+        public string KoyouKbn
+        {
+            get => _KoyouKbn;
+            set
+            {
+                if (_KoyouKbn == value) return;
+                _KoyouKbn = value;
+                OnPropertyChanged();
+            }
+        }
+        private string _KoyouKbn;
 
         public UserContorol1Vm(): base()
         {

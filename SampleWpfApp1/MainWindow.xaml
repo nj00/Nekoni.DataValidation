@@ -5,23 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SampleWpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="450" Width="800" Background="White">
+    <Grid Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Orientation="Vertical" Margin="5">
-            <TextBlock Text="通常のViewModel" />
-            <Border BorderThickness="1" BorderBrush="AliceBlue">
-                <local:UserControl1 />
-            </Border>
-        </StackPanel>
-        <StackPanel Grid.Column="1" Orientation="Vertical"  Margin="5">
-            <TextBlock Text="ReactivePropertyのViewModel" />
-            <Border BorderThickness="1" BorderBrush="AliceBlue">
-                <local:UserControl2 />
-            </Border>
-        </StackPanel>
+        <Border Grid.Column="0" BorderBrush="Navy" BorderThickness="2" Margin="5">
+            <StackPanel Orientation="Vertical" Background="LemonChiffon">
+                <TextBlock Text="通常のViewModel" Margin="3,0"/>
+                <Border BorderThickness="1" BorderBrush="AliceBlue">
+                    <local:UserControl1 />
+                </Border>
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="1" BorderBrush="Navy" BorderThickness="2" Margin="5">
+            <StackPanel Orientation="Vertical" Background="Linen">
+                <TextBlock Text="ReactivePropertyのViewModel" Margin="3,0"/>
+                <Border BorderThickness="1" BorderBrush="AliceBlue">
+                    <local:UserControl2 />
+                </Border>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>
