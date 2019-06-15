@@ -19,7 +19,7 @@ namespace SampleWpfApp1
             base.OnStartup(e);
 
             // エラーメッセージリソースの設定
-            Configuration.DefaultErrorMessageResourceType = typeof(ErrorMessage);
+            Configuration.DefaultErrorMessageResourceTypeProvider = (attr) => typeof(ErrorMessage);
             Configuration.DefaultErrorMessageResourceNameProvider = (attr) => {
                 var attrName = attr.GetType().Name.Replace("Attribute", string.Empty);
                 return attrName.StartsWith("Check") ? attrName : $"Check{attrName}";

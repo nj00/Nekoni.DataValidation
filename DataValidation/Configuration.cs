@@ -12,9 +12,9 @@ namespace Nekoni.DataValidation
     public static class Configuration
     {
         /// <summary>
-        /// 既定のエラーメッセージリソースのSystem.Type
+        /// 既定のエラーメッセージリソースを決定する関数
         /// </summary>
-        public static Type DefaultErrorMessageResourceType { get; set; }
+        public static Func<ValidationAttribute, Type> DefaultErrorMessageResourceTypeProvider { get; set; }
 
         /// <summary>
         /// 既定のエラーメッセージリソース名を決定する関数
@@ -78,12 +78,26 @@ namespace Nekoni.DataValidation
             va.SetupErrorMessageResource(errMsgResourceType, Configuration.DefaultErrorMessageResourceNameProvider.Invoke(va));
         }
         /// <summary>
+        /// 検証属性にメッセージリソースを設定する拡張メソッド
+        /// </summary>
+        /// <param name="va">検証属性</param>
+        /// <param name="errMsgResourceTypeProvider">エラーメッセージが設定されているリソースを決定するFuncデリゲート</param>
+        /// <param name="errMsgResourceNameProvider">エラーメッセージリソース名を決定するFuncデリゲート</param>
+        public static void SetupErrorMessageResource(this ValidationAttribute va,
+            Func<ValidationAttribute, Type> errMsgResourceTypeProvider,
+            Func<ValidationAttribute, string> errMsgResourceNameProvider)
+        {
+            va.SetupErrorMessageResource(errMsgResourceTypeProvider.Invoke(va), errMsgResourceNameProvider.Invoke(va));
+        }
+        /// <summary>
         /// 検証属性に既定のリソースを設定する拡張メソッド
         /// </summary>
         /// <param name="va">検証属性</param>
         public static void SetupErrorMessageResource(this ValidationAttribute va)
         {
-            va.SetupErrorMessageResource(Configuration.DefaultErrorMessageResourceType, Configuration.DefaultErrorMessageResourceNameProvider);
+            va.SetupErrorMessageResource(
+                Configuration.DefaultErrorMessageResourceTypeProvider, 
+                Configuration.DefaultErrorMessageResourceNameProvider);
         }
     }
 }

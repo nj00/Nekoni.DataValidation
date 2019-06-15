@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Nekoni.DataValidation;
-using Nekoni.DataValidation.Attributes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestModels;
+using System.Linq;
+using Nekoni.DataValidation;
+using Nekoni.DataValidation.Attributes;
 
 namespace UnitTestProject1
 {

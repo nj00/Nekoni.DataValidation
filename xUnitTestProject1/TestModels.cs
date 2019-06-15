@@ -1,6 +1,8 @@
-﻿using Nekoni.DataValidation.Attributes;
-using System;
+﻿using System;
+using Nekoni.DataValidation.Attributes;
+using System.Text.RegularExpressions;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace TestModels
 {
@@ -24,7 +26,7 @@ namespace TestModels
         /// <summary>
         /// 社員番号
         /// </summary>
-        [Display(Name = "社員番号")]
+        [Display(Name ="社員番号")]
         [CheckRequired]
         [CheckStringLength(10)]
         public string SyainNo { get; set; }
@@ -51,7 +53,7 @@ namespace TestModels
         /// <summary>
         /// 社員名
         /// </summary>
-        [Display(Name = "社員名")]
+        [Display(Name="社員名")]
         [CheckStringLength(30)]
         public string SyainName
         {
@@ -122,7 +124,7 @@ namespace TestModels
         /// <param name="syain">このクラスのインスタンス</param>
         /// <param name="context">コンテキスト</param>
         /// <returns></returns>
-        public static ValidationResult CheckRetireDate(Staff syain, ValidationContext context)
+        public static ValidationResult CheckRetireDate(Staff syain, ValidationContext context) 
         {
             if (string.IsNullOrEmpty(syain.RetireDate)) return ValidationResult.Success;
             if (string.IsNullOrEmpty(syain.HireDate)) return ValidationResult.Success;

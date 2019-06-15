@@ -1,12 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nekoni.DataValidation;
 using Nekoni.DataValidation.Context;
 using Nekoni.DataValidation.Validator;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using TestModels;
+using System.Linq;
 
 
 namespace UnitTestProject1
@@ -18,8 +18,7 @@ namespace UnitTestProject1
         {
             // エラーメッセージリソースの設定
             Configuration.DefaultErrorMessageResourceTypeProvider = (attr) => typeof(ErrorMessage);
-            Configuration.DefaultErrorMessageResourceNameProvider = (attr) =>
-            {
+            Configuration.DefaultErrorMessageResourceNameProvider = (attr) => {
                 var attrName = attr.GetType().Name.Replace("Attribute", string.Empty);
                 return attrName.StartsWith("Check") ? attrName : $"Check{attrName}";
             };
