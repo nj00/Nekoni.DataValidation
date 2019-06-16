@@ -26,7 +26,7 @@ namespace Nekoni.DataValidation.ReactiveProperty
         /// 全ReactivePropertyにValidationAttributeによる検証ロジックを設定する
         /// </summary>
         /// <param name="context"></param>
-        public static void SetupReactiveProperties(this ForValidation context)
+        public static ForValidation SetupReactiveProperties(this ForValidation context)
         {
             var propValues = context.GetTargetPropValues();
             foreach (var prop in propValues)
@@ -45,6 +45,8 @@ namespace Nekoni.DataValidation.ReactiveProperty
                 var genericMethod = methodInfo.MakeGenericMethod(new[] { typeParameter });
                 genericMethod.Invoke(null, new[] { prop.Value, context.GetTargetPropInfo(prop.Key) });
             }
+
+            return context;
         }
     }
 }
