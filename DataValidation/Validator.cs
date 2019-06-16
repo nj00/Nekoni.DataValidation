@@ -18,6 +18,12 @@ namespace Nekoni.DataValidation.Validator
         private static Dictionary<Type, Dictionary<string, List<ValidationAttribute>>> TypeAttributes =
             new Dictionary<Type, Dictionary<string, List<ValidationAttribute>>>();
 
+        /// <summary>
+        /// 検証属性が付いたPropertyのPropertyInfoのDictionary
+        /// </summary>
+        private static Dictionary<Type, Dictionary<string, PropertyInfo>> TypePropInfos =
+            new Dictionary<Type, Dictionary<string, PropertyInfo>>();
+
         private static string ClassLevelKey = "@";
 
         private Dictionary<string, object> PropertyValues = new Dictionary<string, object>();
@@ -63,6 +69,21 @@ namespace Nekoni.DataValidation.Validator
                 }
             }
 
+            void AddPropInfos(string key, PropertyInfo propInfo)
+            {
+                if (TypePropInfos.ContainsKey(type))
+                {
+                    TypePropInfos[type].Add(key, propInfo);
+                }
+                else
+                {
+                    var dic = new Dictionary<string, PropertyInfo>();
+                    dic.Add(key, propInfo);
+                    TypePropInfos.Add(type, dic);
+                }
+            }
+
+
             // Class Attributes
             var classAttributes = type.GetCustomAttributes(true).OfType<ValidationAttribute>();
             AddAttributes(ClassLevelKey, classAttributes);
@@ -71,7 +92,11 @@ namespace Nekoni.DataValidation.Validator
             foreach (var prop in type.GetProperties().Cast<PropertyInfo>())
             {
                 var propAttributes = prop.GetCustomAttributes().OfType<ValidationAttribute>();
-                AddAttributes(prop.Name, propAttributes);
+                if (propAttributes.Count() > 0)
+                {
+                    AddAttributes(prop.Name, propAttributes);
+                    AddPropInfos(prop.Name, prop);
+                }
             }
         }
 
@@ -96,6 +121,18 @@ namespace Nekoni.DataValidation.Validator
         {
             if (!PropertyValues.ContainsKey(propertyName)) return null;
             return PropertyValues[propertyName];
+        }
+
+        public Dictionary<string, PropertyInfo> GetTargetPropInfos()
+        {
+            return TypePropInfos[Context.ObjectType];
+        }
+
+        public PropertyInfo GetTargetPropInfo(string propertyName)
+        {
+            var propInfos = GetTargetPropInfos();
+            if (!propInfos.ContainsKey(propertyName)) return null;
+            return propInfos[propertyName];
         }
     }
 

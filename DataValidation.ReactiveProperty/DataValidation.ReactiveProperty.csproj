@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Nekoni.DataValidation.ReactiveProperty</AssemblyName>
+    <RootNamespace>Nekoni.DataValidation.ReactiveProperty</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ReactiveProperty" Version="5.5.1" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataValidation\DataValidation.csproj" />
+  </ItemGroup>
+
+</Project>

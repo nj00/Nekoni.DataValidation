@@ -68,7 +68,6 @@
       <DependentUpon>UserControl2.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControl1Vm.cs" />
-    <Compile Include="ReactivePropertyExtensions.cs" />
     <Compile Include="UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
@@ -125,6 +124,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataValidation.ReactiveProperty\DataValidation.ReactiveProperty.csproj">
+      <Project>{54a4237a-1453-46d9-b58f-e5808677c17c}</Project>
+      <Name>DataValidation.ReactiveProperty</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataValidation\DataValidation.csproj">
       <Project>{79222f02-3563-401d-af16-ccf378a03049}</Project>
       <Name>DataValidation</Name>

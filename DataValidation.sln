@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWpfApp1", "SampleWpfA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{E09D2FBD-41A9-4B9A-A721-4CC6BE5BA153}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataValidation.ReactiveProperty", "DataValidation.ReactiveProperty\DataValidation.ReactiveProperty.csproj", "{54A4237A-1453-46D9-B58F-E5808677C17C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{E09D2FBD-41A9-4B9A-A721-4CC6BE5BA153}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E09D2FBD-41A9-4B9A-A721-4CC6BE5BA153}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E09D2FBD-41A9-4B9A-A721-4CC6BE5BA153}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54A4237A-1453-46D9-B58F-E5808677C17C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54A4237A-1453-46D9-B58F-E5808677C17C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54A4237A-1453-46D9-B58F-E5808677C17C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54A4237A-1453-46D9-B58F-E5808677C17C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

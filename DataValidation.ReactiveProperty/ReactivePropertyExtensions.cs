@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using Reactive.Bindings;
 using Nekoni.DataValidation.Validator;
 
-namespace Nekoni.DataValidation
+namespace Nekoni.DataValidation.ReactiveProperty
 {
-    static class ReactivePropertyExtensions
+    public static class ReactivePropertyExtensions
     {
         /// <summary>
         /// Set validation logic from DataAnnotations attributes.
@@ -20,10 +20,8 @@ namespace Nekoni.DataValidation
         /// <param name="self">Target ReactiveProperty</param>
         /// <param name="selfSelector">Target property as expression</param>
         /// <returns>Self</returns>
-        public static ReactiveProperty<T> SetNekoniDataValidationAttribute<T>(this ReactiveProperty<T> self, Expression<Func<ReactiveProperty<T>>> selfSelector)
+        public static ReactiveProperty<T> SetNekoniDataValidationAttribute<T>(this ReactiveProperty<T> self, PropertyInfo propertyInfo)
         {
-            var memberExpression = (MemberExpression)selfSelector.Body;
-            var propertyInfo = (PropertyInfo)memberExpression.Member;
             var propName = propertyInfo.Name;
             var displayAttr = propertyInfo.GetCustomAttributes().OfType<DisplayAttribute>().FirstOrDefault();
             var attrs = propertyInfo.GetCustomAttributes<ValidationAttribute>().ToList();
@@ -48,5 +46,20 @@ namespace Nekoni.DataValidation
 
             return self;
         }
+
+        /// <summary>
+        /// Set validation logic from DataAnnotations attributes.
+        /// </summary>
+        /// <typeparam name="T">Property type</typeparam>
+        /// <param name="self">Target ReactiveProperty</param>
+        /// <param name="selfSelector">Target property as expression</param>
+        /// <returns>Self</returns>
+        public static ReactiveProperty<T> SetNekoniDataValidationAttribute<T>(this ReactiveProperty<T> self, Expression<Func<ReactiveProperty<T>>> selfSelector)
+        {
+            var memberExpression = (MemberExpression)selfSelector.Body;
+            var propertyInfo = (PropertyInfo)memberExpression.Member;
+            return self.SetNekoniDataValidationAttribute(propertyInfo);
+        }
+
     }
 }
