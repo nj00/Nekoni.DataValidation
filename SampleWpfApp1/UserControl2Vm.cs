@@ -9,10 +9,11 @@ using System.ComponentModel.DataAnnotations;
 using Nekoni.DataValidation;
 using Nekoni.DataValidation.Context;
 using Nekoni.DataValidation.ReactiveProperty;
+using Reactive.Bindings.Extensions;
 
 namespace SampleWpfApp1
 {
-    public class UserContorol2Vm: ViewModelBase
+    public class UserContorol2Vm: ReactivePropertyViewModelBase
     {
         /// <summary>
         /// 社員番号
@@ -43,31 +44,5 @@ namespace SampleWpfApp1
         [EnumDataType(typeof(KoyouKbn))]
         public ReactiveProperty<string> KoyouKbn { get; private set; } = new ReactiveProperty<string>();
 
-
-        public UserContorol2Vm()
-        {
-            //SyainNo.SetNekoniDataValidationAttribute(() => SyainNo);
-            //MailAddress.SetNekoniDataValidationAttribute(() => MailAddress);
-            //MailAddressConfirm.SetNekoniDataValidationAttribute(() => MailAddressConfirm);
-            //KoyouKbn.SetNekoniDataValidationAttribute(() => KoyouKbn);
-            this.ForValidation().SetupReactiveProperties();
-
-            AllErrors = Observable.CombineLatest(
-                SyainNo.ObserveErrorChanged.Select(e => e?.OfType<ValidationResult>()),
-                MailAddress.ObserveErrorChanged.Select(e => e?.OfType<ValidationResult>()),
-                MailAddressConfirm.ObserveErrorChanged.Select(e => e?.OfType<ValidationResult>()),
-                KoyouKbn.ObserveErrorChanged.Select(e => e?.OfType<ValidationResult>()),
-                (syainNo, mailAddress, mailConfirm, KoyouKbn) =>
-                {
-                    var list = new List<ValidationResult>();
-                    if (syainNo != null) list.AddRange(syainNo);
-                    if (mailAddress != null) list.AddRange(mailAddress);
-                    if (mailConfirm != null) list.AddRange(mailConfirm);
-                    if (KoyouKbn != null) list.AddRange(KoyouKbn);
-                    return list;
-                }).ToReadOnlyReactiveProperty();
-        }
-
-        public new ReadOnlyReactiveProperty<List<ValidationResult>> AllErrors { get; }
     }
 }
