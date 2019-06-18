@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Nekoni.DataValidation.Attributes;
 
 namespace SampleWpfApp1
 {
@@ -23,6 +24,31 @@ namespace SampleWpfApp1
         private string _SyainNo;
 
         /// <summary>
+        /// 年齢
+        /// </summary>
+        [Display(Name = "年齢")]
+        [Range(16, 80)]
+        public string Age
+        {
+            get => _Age;
+            set => SetPropertyValue(ref _Age, value);
+        }
+        private string _Age;
+
+        /// <summary>
+        /// 入社年月日
+        /// </summary>
+        [Display(Name = "入社年月日")]
+        [Required]
+        [CheckDate]
+        public string HireDate
+        {
+            get => _HireDate;
+            set => SetPropertyValue(ref _HireDate, value);
+        }
+        private string _HireDate;
+
+        /// <summary>
         /// メールアドレス
         /// </summary>
         [Display(Name = "メールアドレス")]
@@ -34,15 +60,6 @@ namespace SampleWpfApp1
         }
         private string _MailAddress;
 
-        [Display(Name = "メールアドレス（確認）")]
-        [Required]
-        [Compare("MailAddress", ErrorMessage="{0}がメールアドレスと等しくありません。")]
-        public string MailAddressConfirm
-        {
-            get => _MailAddressConfirm;
-            set => SetPropertyValue(ref _MailAddressConfirm, value);
-        }
-        private string _MailAddressConfirm;
 
         /// <summary>
         /// 雇用区分

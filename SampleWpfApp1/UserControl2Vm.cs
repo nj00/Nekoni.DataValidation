@@ -10,6 +10,7 @@ using Nekoni.DataValidation;
 using Nekoni.DataValidation.Context;
 using Nekoni.DataValidation.ReactiveProperty;
 using Reactive.Bindings.Extensions;
+using Nekoni.DataValidation.Attributes;
 
 namespace SampleWpfApp1
 {
@@ -24,18 +25,27 @@ namespace SampleWpfApp1
         public ReactiveProperty<string> SyainNo { get; private set; } = new ReactiveProperty<string>();
 
         /// <summary>
+        /// 年齢
+        /// </summary>
+        [Display(Name = "年齢")]
+        [Range(16, 80)]
+        public ReactiveProperty<string> Age { get; private set; } = new ReactiveProperty<string>();
+
+        /// <summary>
+        /// 入社年月日
+        /// </summary>
+        [Display(Name = "入社年月日")]
+        [Required]
+        [CheckDate]
+        public ReactiveProperty<string> HireDate { get; private set; } = new ReactiveProperty<string>();
+
+        /// <summary>
         /// メールアドレス
         /// </summary>
         [Display(Name = "メールアドレス")]
         [Required]
         [EmailAddress]
         public ReactiveProperty<string> MailAddress { get; private set; } = new ReactiveProperty<string>();
-
-
-        [Display(Name = "メールアドレス（確認）")]
-        [Required]
-        [Compare("MailAddress", ErrorMessage = "{0}がメールアドレスと等しくありません。")]
-        public ReactiveProperty<string> MailAddressConfirm { get; private set; } = new ReactiveProperty<string>();
 
         /// <summary>
         /// 雇用区分

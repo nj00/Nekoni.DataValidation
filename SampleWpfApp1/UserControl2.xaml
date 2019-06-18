@@ -25,12 +25,16 @@
                 <TextBox Text="{Binding Path=SyainNo.Value, Mode=TwoWay}" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="148" Margin="5,0" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="2">
-                <TextBlock HorizontalAlignment="Left" Text="メールアドレス" VerticalAlignment="Top" Height="24" Width="120" />
-                <TextBox Text="{Binding Path=MailAddress.Value, Mode=TwoWay}" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="148" Margin="5,0" />
+                <TextBlock HorizontalAlignment="Left" Text="年齢" VerticalAlignment="Top" Height="24" Width="120" />
+                <TextBox Text="{Binding Path=Age.Value, Mode=TwoWay}" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="148" Margin="5,0" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="2">
-                <TextBlock HorizontalAlignment="Left" Text="メールアドレス（確認）" VerticalAlignment="Top" Height="24" Width="120" />
-                <TextBox Text="{Binding Path=MailAddressConfirm.Value, Mode=TwoWay}" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="148" Margin="5,0" />
+                <TextBlock HorizontalAlignment="Left" Text="入社年月日" VerticalAlignment="Top" Height="24" Width="120" />
+                <TextBox Text="{Binding Path=HireDate.Value, Mode=TwoWay}" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="148" Margin="5,0" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="2">
+                <TextBlock HorizontalAlignment="Left" Text="メールアドレス" VerticalAlignment="Top" Height="24" Width="120" />
+                <TextBox Text="{Binding Path=MailAddress.Value, Mode=TwoWay}" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="148" Margin="5,0" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="2">
                 <TextBlock HorizontalAlignment="Left" Text="雇用区分" VerticalAlignment="Top" Height="24" Width="120" />
