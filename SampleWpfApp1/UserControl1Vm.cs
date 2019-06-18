@@ -15,16 +15,10 @@ namespace SampleWpfApp1
         [Display(Name = "社員番号")]
         [Required]
         [StringLength(10)]
-
         public string SyainNo
         {
             get => _SyainNo;
-            set
-            {
-                if (_SyainNo == value) return;
-                _SyainNo = value;
-                OnPropertyChanged();
-            }
+            set => SetPropertyValue(ref _SyainNo, value);
         }
         private string _SyainNo;
 
@@ -36,12 +30,7 @@ namespace SampleWpfApp1
         [EmailAddress]
         public string MailAddress {
             get =>  _MailAddress;
-            set
-            {
-                if (_MailAddress == value) return;
-                _MailAddress = value;
-                OnPropertyChanged();
-            }
+            set => SetPropertyValue(ref _MailAddress, value);
         }
         private string _MailAddress;
 
@@ -51,12 +40,7 @@ namespace SampleWpfApp1
         public string MailAddressConfirm
         {
             get => _MailAddressConfirm;
-            set
-            {
-                if (_MailAddressConfirm == value) return;
-                _MailAddressConfirm = value;
-                OnPropertyChanged();
-            }
+            set => SetPropertyValue(ref _MailAddressConfirm, value);
         }
         private string _MailAddressConfirm;
 
@@ -68,18 +52,9 @@ namespace SampleWpfApp1
         public string KoyouKbn
         {
             get => _KoyouKbn;
-            set
-            {
-                if (_KoyouKbn == value) return;
-                _KoyouKbn = value;
-                OnPropertyChanged();
-            }
+            set => SetPropertyValue(ref _KoyouKbn, value);
         }
         private string _KoyouKbn;
 
-        public UserContorol1Vm(): base()
-        {
-            RaiseErrorChanged(string.Empty);
-        }
     }
 }

@@ -18,10 +18,10 @@ namespace Nekoni.DataValidation.ReactiveProperty
         /// </summary>
         static List<MethodInfo> SetValidationMethodInfos = typeof(ReactivePropertyExtensions)
             .GetMethods(BindingFlags.Static | BindingFlags.Public)
-            .Where(_ => _.Name == nameof(ReactivePropertyExtensions.SetNekoniDataValidationAttribute)
-                    && _.IsGenericMethodDefinition
-                    && _.GetParameters()[0].ParameterType.IsGenericType
-                    && _.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == typeof(ReactiveProperty<>)
+            .Where(a => a.Name == nameof(ReactivePropertyExtensions.SetNekoniDataValidationAttribute)
+                    && a.IsGenericMethodDefinition
+                    && a.GetParameters()[0].ParameterType.IsGenericType
+                    && a.GetParameters()[0].ParameterType.GetGenericTypeDefinition() == typeof(ReactiveProperty<>)
             ).ToList();
 
         /// <summary>
@@ -42,8 +42,8 @@ namespace Nekoni.DataValidation.ReactiveProperty
                 // MethodInfoの場合はこう？
                 // https://ja.stackoverflow.com/questions/12801/c-type%E5%9E%8B%E3%81%A7%E6%8C%87%E5%AE%9A%E3%81%97%E3%81%9F%E5%9E%8B%E3%81%AB%E5%8B%95%E7%9A%84%E3%82%AD%E3%83%A3%E3%82%B9%E3%83%88%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF
                 var typeParameter = type.GetGenericArguments()[0];
-                var methodInfo = SetValidationMethodInfos.First(_ =>
-                        _.GetParameters()[1].ParameterType == typeof(PropertyInfo));
+                var methodInfo = SetValidationMethodInfos.First(a =>
+                        a.GetParameters()[1].ParameterType == typeof(PropertyInfo));
                 var genericMethod = methodInfo.MakeGenericMethod(new[] { typeParameter });
                 genericMethod.Invoke(null, new[] { prop.Value, context.GetTargetPropInfo(prop.Key) });
             }
@@ -58,9 +58,9 @@ namespace Nekoni.DataValidation.ReactiveProperty
         /// <returns></returns>
         public static IObservable<IEnumerable<ValidationResult>> GetAllErrorsObservable(this ForValidation context)
         {
-            var targets = context.GetTargetPropValues().Where(_ =>
+            var targets = context.GetTargetPropValues().Where(a =>
             {
-                var type = _.Value.GetType();
+                var type = a.Value.GetType();
                 if (!type.IsGenericType) return false;
 
                 var rpType = type.GetGenericTypeDefinition();
@@ -68,18 +68,18 @@ namespace Nekoni.DataValidation.ReactiveProperty
 
                 return true;
             })
-            .Select(_ =>
+            .Select(a =>
             {
-                var type = _.Value.GetType();
+                var type = a.Value.GetType();
                 var prop = type.GetProperty("ObserveErrorChanged");
-                var observable = prop.GetValue(_.Value) as IObservable<System.Collections.IEnumerable>;
+                var observable = prop.GetValue(a.Value) as IObservable<System.Collections.IEnumerable>;
                 if (observable == null) return null;
                 return observable.Select(e => e?.OfType<ValidationResult>());
             })
-            .Where(_ => _ != null);
+            .Where(a => a != null);
 
             return Observable.CombineLatest(targets)
-                .Select(_ => _.Where(e => e != null).SelectMany(e => e));
+                .Select(a => a.Where(e => e != null).SelectMany(e => e));
         }
     }
 }

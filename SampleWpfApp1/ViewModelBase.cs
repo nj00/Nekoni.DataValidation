@@ -23,6 +23,8 @@ namespace SampleWpfApp1
         public ViewModelBase()
         {
             _AllErrors = new List<ValidationResult>();
+
+            RaiseErrorChanged(string.Empty);
         }
 
         public System.Collections.IEnumerable GetErrors(string propertyName)
@@ -57,6 +59,14 @@ namespace SampleWpfApp1
             var h = ErrorsChanged;
             if (h == null) return;
             h(this, new DataErrorsChangedEventArgs(propertyName));
+        }
+
+        protected void SetPropertyValue<T>(ref T backingStore, T newValue, [CallerMemberName]string propertyName = "")
+        {
+            if (EqualityComparer<T>.Default.Equals(backingStore, newValue)) return;
+
+            backingStore = newValue;
+            OnPropertyChanged(propertyName);
         }
 
         // オブジェクトにエラーがあったらtrue返す
