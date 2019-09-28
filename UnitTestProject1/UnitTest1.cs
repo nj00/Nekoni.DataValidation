@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using TestModels;
+using SampleModels;
 
 namespace UnitTestProject1
 {
@@ -15,10 +16,10 @@ namespace UnitTestProject1
         public UnitTest1()
         {
             // エラーメッセージリソースの設定
-            Configuration.DefaultErrorMessageResourceTypeProvider = (attr) => typeof(ErrorMessage);
+            ValidationConfig.DefaultErrorMessageResourceTypeProvider = (attr) => typeof(ErrorMessage);
 
             // 最優先検証アトリビュート
-            Configuration.FirstValidationAttributesProvider = () => new[] { typeof(CheckRequiredAttribute) };
+            ValidationConfig.FirstValidationAttributesProvider = () => new[] { typeof(CheckRequiredAttribute) };
         }
 
         [TestMethod]

@@ -1,0 +1,31 @@
+﻿<Window x:Class="SampleWpfApp2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SampleWpfApp2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0" BorderBrush="Navy" BorderThickness="2" Margin="5">
+            <StackPanel Orientation="Vertical" Background="LemonChiffon">
+                <TextBlock Text="通常のViewModel" Margin="3,0"/>
+                <Border BorderThickness="1" BorderBrush="AliceBlue">
+                    <local:UserControl1 />
+                </Border>
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="1" BorderBrush="Navy" BorderThickness="2" Margin="5">
+            <StackPanel Orientation="Vertical" Background="Linen">
+                <TextBlock Text="ReactivePropertyのViewModel" Margin="3,0"/>
+                <Border BorderThickness="1" BorderBrush="AliceBlue">
+                    <local:UserControl2 />
+                </Border>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

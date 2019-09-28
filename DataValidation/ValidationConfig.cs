@@ -9,7 +9,7 @@ namespace Nekoni.DataValidation
     /// <summary>
     /// 基本設定クラス
     /// </summary>
-    public static class Configuration
+    public static class ValidationConfig
     {
         /// <summary>
         /// 既定のエラーメッセージリソースを決定する関数
@@ -75,7 +75,7 @@ namespace Nekoni.DataValidation
         /// <param name="errMsgResourceType">エラーメッセージが設定されているリソースのType</param>
         public static void SetupErrorMessageResource(this ValidationAttribute va, Type errMsgResourceType)
         {
-            va.SetupErrorMessageResource(errMsgResourceType, Configuration.DefaultErrorMessageResourceNameProvider.Invoke(va));
+            va.SetupErrorMessageResource(errMsgResourceType, ValidationConfig.DefaultErrorMessageResourceNameProvider.Invoke(va));
         }
         /// <summary>
         /// 検証属性にメッセージリソースを設定する拡張メソッド
@@ -96,8 +96,8 @@ namespace Nekoni.DataValidation
         public static void SetupErrorMessageResource(this ValidationAttribute va)
         {
             va.SetupErrorMessageResource(
-                Configuration.DefaultErrorMessageResourceTypeProvider, 
-                Configuration.DefaultErrorMessageResourceNameProvider);
+                ValidationConfig.DefaultErrorMessageResourceTypeProvider, 
+                ValidationConfig.DefaultErrorMessageResourceNameProvider);
         }
     }
 }

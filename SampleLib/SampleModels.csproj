@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ReactiveProperty" Version="6.1.3" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataValidation.ReactiveProperty\DataValidation.ReactiveProperty.csproj" />
+    <ProjectReference Include="..\DataValidation\DataValidation.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ErrorMessage.Designer.cs">
+      <DependentUpon>ErrorMessage.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="ErrorMessage.resx">
+      <LastGenOutput>ErrorMessage.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

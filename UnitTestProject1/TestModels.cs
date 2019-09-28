@@ -4,42 +4,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
+using SampleModels;
 
 namespace TestModels
 {
-    /// <summary>
-    /// 雇用区分
-    /// </summary>
-    public enum KoyouKbn
-    {
-        Seiki,
-        Haken,
-        Syukou
-    }
-
-    /// <summary>
-    /// ViewModelの基底クラス
-    /// </summary>
-    public class ViewModelBase : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void RaisePropertyChanged([CallerMemberName]string propertyName = "")
-        {
-            var h = PropertyChanged;
-            if (h == null) return;
-            h(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        protected void SetPropertyValue<T>(ref T backingStore, T newValue, [CallerMemberName]string propertyName = "")
-        {
-            if (EqualityComparer<T>.Default.Equals(backingStore, newValue)) return;
-
-            backingStore = newValue;
-            RaisePropertyChanged(propertyName);
-        }
-    }
-
     /// <summary>
     /// Check～アトリビュートを使用したモデル
     /// Check～アトリビュートはコンストラクタで既定リソースを設定している

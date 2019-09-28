@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UnitTestProject1 {
+namespace SampleModels {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace UnitTestProject1 {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("UnitTestProject1.ErrorMessage", typeof(ErrorMessage).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SampleModels.ErrorMessage", typeof(ErrorMessage).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -165,7 +165,7 @@ namespace Nekoni.DataValidation.Validator
         /// <returns></returns>
         public static List<ValidationResult> GetAllFisrtValidationErrors(this ForValidation forValidation)
         {
-            var firsts = Configuration.FirstValidationAttributesProvider.Invoke();
+            var firsts = ValidationConfig.FirstValidationAttributesProvider.Invoke();
             var context = forValidation.Context;
             var ret = new List<ValidationResult>();
             foreach (var prop in forValidation.GetTargetPropValues().Keys)
@@ -206,7 +206,7 @@ namespace Nekoni.DataValidation.Validator
 
 
             // 最優先チェック
-            var firsts = Configuration.FirstValidationAttributesProvider.Invoke();
+            var firsts = ValidationConfig.FirstValidationAttributesProvider.Invoke();
             foreach (var attr in validations.Where(va => firsts.Contains(va.GetType())))
             {
                 ret.AddErrors(ctx, attr, value);

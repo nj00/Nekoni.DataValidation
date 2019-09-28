@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using TestModels;
-
+using SampleModels;
 
 namespace UnitTestProject1
 {
@@ -17,8 +17,8 @@ namespace UnitTestProject1
         public UnitTest2()
         {
             // エラーメッセージリソースの設定
-            Configuration.DefaultErrorMessageResourceTypeProvider = (attr) => typeof(ErrorMessage);
-            Configuration.DefaultErrorMessageResourceNameProvider = (attr) =>
+            ValidationConfig.DefaultErrorMessageResourceTypeProvider = (attr) => typeof(ErrorMessage);
+            ValidationConfig.DefaultErrorMessageResourceNameProvider = (attr) =>
             {
                 var attrName = attr.GetType().Name.Replace("Attribute", string.Empty);
                 return attrName.StartsWith("Check") ? attrName : $"Check{attrName}";

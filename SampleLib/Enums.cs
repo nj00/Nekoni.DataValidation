@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SampleWpfApp1
+namespace SampleModels
 {
     /// <summary>
     /// 雇用区分

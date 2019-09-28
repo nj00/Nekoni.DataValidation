@@ -12,7 +12,7 @@ using Reactive.Bindings.Extensions;
 using Nekoni.DataValidation.Context;
 using Nekoni.DataValidation.ReactiveProperty;
 
-namespace SampleWpfApp1
+namespace SampleModels
 {
     /// <summary>
     /// ViewModelBase

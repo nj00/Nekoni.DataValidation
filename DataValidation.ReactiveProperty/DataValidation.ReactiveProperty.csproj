@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ReactiveProperty" Version="5.5.1" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
+    <PackageReference Include="ReactiveProperty" Version="6.1.3" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.6.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -12,7 +12,7 @@ using Nekoni.DataValidation.ReactiveProperty;
 using Reactive.Bindings.Extensions;
 using Nekoni.DataValidation.Attributes;
 
-namespace SampleWpfApp1
+namespace SampleModels
 {
     public class UserContorol2Vm: ReactivePropertyViewModelBase
     {

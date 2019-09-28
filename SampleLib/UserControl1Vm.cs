@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using Nekoni.DataValidation.Attributes;
 
-namespace SampleWpfApp1
+namespace SampleModels
 {
     public class UserContorol1Vm: ViewModelBase
     {

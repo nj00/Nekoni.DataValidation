@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Nekoni.DataValidation.Context;
 using Nekoni.DataValidation.Validator;
 
-namespace SampleWpfApp1
+namespace SampleModels
 {
     /// <summary>
     /// ViewModelBase

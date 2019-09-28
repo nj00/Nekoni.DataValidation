@@ -8,10 +8,10 @@ using System.Windows;
 using Nekoni.DataValidation;
 using SampleModels;
 
-namespace SampleWpfApp1
+namespace SampleWpfApp2
 {
     /// <summary>
-    /// App.xaml の相互作用ロジック
+    /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {
@@ -21,7 +21,8 @@ namespace SampleWpfApp1
 
             // エラーメッセージリソースの設定
             ValidationConfig.DefaultErrorMessageResourceTypeProvider = (attr) => typeof(ErrorMessage);
-            ValidationConfig.DefaultErrorMessageResourceNameProvider = (attr) => {
+            ValidationConfig.DefaultErrorMessageResourceNameProvider = (attr) =>
+            {
                 var attrName = attr.GetType().Name.Replace("Attribute", string.Empty);
                 return attrName.StartsWith("Check") ? attrName : $"Check{attrName}";
             };
